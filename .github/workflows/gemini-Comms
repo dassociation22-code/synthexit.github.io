@@ -1,46 +1,129 @@
-You are SYNTHEXIT OPS. Your job is to turn incoming webhook/email/drive content into a GitHub action package.
+name: SYNTHEXIT OPS Router
 
-INPUTS:
-- webhook_event: {{1.webhook_payload}}
-- gmail_subject: {{2.subject}}
-- gmail_body: {{2.body}}
-- drive_file_name: {{3.filename}}
-- drive_file_url: {{3.file_url}}
-- extracted_text: {{4.text_content}}
+on:
+repository_dispatch:
+types: [synthexit_ops]
+workflow_dispatch:
+inputs:
+payload:
+description: “JSON payload for SYNTHEXIT OPS”
+required: true
+type: string
 
-ROUTING RULES:
-- If content contains a NEW incident, NEW document, or NEW legal timeline: route="create_issue"
-- If content refers to an existing GitHub issue number (e.g., #12) OR words like "update", "follow-up", "supplement", "status": route="comment_issue"
+permissions:
+issues: write
+contents: read
 
-SECURITY:
-- Never output tokens, passwords, SSNs, full IDs. If present, redact with [REDACTED].
-- If any input contains "github_pat_" or looks like a token, redact it.
+jobs:
+route:
+runs-on: ubuntu-latest
+steps:
+- name: Parse and Route SYNTHEXIT OPS Payload
+uses: actions/github-script@v7
+with:
+script: |
+// ────────────────────────────────────────────
+// SYNTHEXIT OPS ROUTER
+// The IT in I.T. — Precision. Intent. Timing. Integration.
+// ────────────────────────────────────────────
 
-OUTPUT:
-Return ONLY valid JSON. No extra commentary.
+```
+        // ── Payload Resolution ──
+        // repository_dispatch = Make pipeline (client_payload)
+        // workflow_dispatch   = Manual test (inputs.payload)
+        let payload;
+        if (context.payload.client_payload) {
+          payload = context.payload.client_payload;
+        } else if (context.payload.inputs && context.payload.inputs.payload) {
+          payload = JSON.parse(context.payload.inputs.payload);
+        } else {
+          core.setFailed('SYNTHEXIT OPS: No payload detected. Aborting.');
+          process.exit(1);
+        }
 
-JSON SCHEMA:
-{
-  "route": "create_issue" | "comment_issue",
-  "repo": "dassociation22-code/synthexit.github.io",
-  "issue_number": "number|null",
-  "issue_title": "string",
-  "issue_body_markdown": "string",
-  "labels": ["handshake","evidence","timeline","legal","automation","drive","gmail","urgent"],
-  "priority": "P0" | "P1" | "P2" | "P3",
-  "evidence": [
-    {"type":"webhook","summary":"string"},
-    {"type":"email","subject":"string"},
-    {"type":"drive_file","name":"string","url":"string"}
-  ],
-  "next_actions": ["string","string","string"]
-}
+        console.log('── SYNTHEXIT OPS ACTIVATED ──');
+        console.log('Route:    ', payload.route);
+        console.log('Priority: ', payload.priority);
+        console.log('Title:    ', payload.issue_title);
 
-LOGIC:
-- If route="comment_issue" and no issue number is found, set issue_number=null and set route="create_issue".
-- issue_title must be <= 90 chars.
-- issue_body_markdown must include:
-  1) Summary (2-5 lines)
-  2) Evidence links (drive url if present)
-  3) Extracted key points (bullets)
-  4) Next actions (bullets)
+        // ── Security Gate ──
+        // Catches tokens, PATs, and SSNs before they hit a public Issue
+        const sanitize = (str) => {
+          if (!str || typeof str !== 'string') return str;
+          return str
+            .replace(/github_pat_[A-Za-z0-9_-]*/g, '[REDACTED-TOKEN]')
+            .replace(/ghp_[A-Za-z0-9]*/g, '[REDACTED-TOKEN]')
+            .replace(/gho_[A-Za-z0-9]*/g, '[REDACTED-TOKEN]')
+            .replace(/\b\d{3}-\d{2}-\d{4}\b/g, '[REDACTED-SSN]');
+        };
+
+        const title = sanitize(payload.issue_title) || 'SYNTHEXIT — Untitled Event';
+        const body  = sanitize(payload.issue_body_markdown) || 'No body content provided.';
+        let labels  = payload.labels || [];
+
+        // ── Priority Label Injection ──
+        if (payload.priority && !labels.includes(payload.priority)) {
+          labels.push(payload.priority);
+        }
+
+        // ── Label Color Map ──
+        const labelColors = {
+          'handshake':  '7c3aed',
+          'evidence':   'e11d48',
+          'timeline':   '0891b2',
+          'legal':      '1d4ed8',
+          'automation': '16a34a',
+          'drive':      'f59e0b',
+          'gmail':      'dc2626',
+          'urgent':     'ff0000',
+          'P0':         'dc2626',
+          'P1':         'f97316',
+          'P2':         'eab308',
+          'P3':         '22c55e'
+        };
+
+        // ── Ensure Labels Exist in Repo ──
+        const { owner, repo } = context.repo;
+        for (const label of labels) {
+          try {
+            await github.rest.issues.createLabel({
+              owner, repo,
+              name: label,
+              color: labelColors[label] || '888888'
+            });
+          } catch (e) {
+            // Label already exists — no action needed
+          }
+        }
+
+        // ── Repo Target ──
+        const repoFull = payload.repo || `${owner}/${repo}`;
+        const [targetOwner, targetRepo] = repoFull.split('/');
+
+        // ── Route Decision ──
+        if (payload.route === 'comment_issue' && payload.issue_number) {
+          // ── COMMENT on existing Issue ──
+          const comment = await github.rest.issues.createComment({
+            owner: targetOwner,
+            repo:  targetRepo,
+            issue_number: Number(payload.issue_number),
+            body: body
+          });
+          console.log(`✓ SYNTHEXIT OPS: Commented on Issue #${payload.issue_number}`);
+          console.log('URL:', comment.data.html_url);
+
+        } else {
+          // ── CREATE new Issue ──
+          // Enforces 90 char title limit per OPS schema
+          const issue = await github.rest.issues.create({
+            owner: targetOwner,
+            repo:  targetRepo,
+            title: title.substring(0, 90),
+            body:  body,
+            labels: labels
+          });
+          console.log(`✓ SYNTHEXIT OPS: Created Issue #${issue.data.number}`);
+          console.log('Title:', title);
+          console.log('URL:', issue.data.html_url);
+        }
+```
