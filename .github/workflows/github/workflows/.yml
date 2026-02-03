@@ -1,0 +1,43 @@
+# .github/workflows/synthexit-commander.yml
+name: SYNTHEXIT Commander
+
+on:
+  repository_dispatch:
+    types: [commander_activate, siri_trigger]
+  schedule:
+    - cron: '*/5 * * * *'  # Auto-scan every 5 minutes
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "Voice command or manual trigger"
+        required: false
+        type: string
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  commander:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: SYNTHEXIT Commander — Execute
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          DRIVE_REFRESH_TOKEN: ${{ secrets.DRIVE_REFRESH_TOKEN }}
+          DRIVE_FOLDER_ID: '1yTHixY9fHJkWkOTkk5ZgFRQgYvsFV3fS'
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRIGGER_SOURCE: ${{ github.event.client_payload.source || 'manual' }}
+          COMMAND: ${{ github.event.client_payload.command || github.event.inputs.command || 'AUTO-SCAN' }}
+        run: node scripts/commander.js
