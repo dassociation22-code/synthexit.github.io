@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SYNTHEXIT — The IT in I.T.</title>
+<style>
+/* ─── RESET & ROOT ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+–bg:#0a0a0f;
+–bg-surface:#111118;
+–bg-card:#161620;
+–bg-card-hover:#1e1e2a;
+–text:#e2e2e8;
+–text-dim:#7a7a8a;
+–accent:#7c3aed;
+–accent-light:#9f67ff;
+–accent-glow:rgba(124,58,237,.35);
+–accent-glow-soft:rgba(124,58,237,.12);
+–border:rgba(124,58,237,.18);
+–border-dim:rgba(255,255,255,.06);
+–radius:10px;
+–font-sans:-apple-system,BlinkMacSystemFont,“Segoe UI”,Roboto,sans-serif;
+–font-mono:“SF Mono”,“Fira Code”,“Consolas”,“Courier New”,monospace;
+}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+font-family:var(–font-sans);
+background:var(–bg);
+color:var(–text);
+line-height:1.6;
+min-height:100vh;
+overflow-x:hidden;
+-webkit-font-smoothing:antialiased;
+}
+
+/* ─── SCANLINE OVERLAY ─── */
+body::after{
+content:’’;
+position:fixed;inset:0;
+background:repeating-linear-gradient(
+0deg,
+transparent 0px,
+transparent 3px,
+rgba(0,0,0,.04) 3px,
+rgba(0,0,0,.04) 4px
+);
+pointer-events:none;
+z-index:9999;
+}
+
+/* ─── NOISE GRAIN (SVG filter) ─── */
+body::before{
+content:’’;
+position:fixed;inset:0;
+opacity:.035;
+background-image:url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=’.85’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘1’/%3E%3C/svg%3E”);
+background-size:256px 256px;
+pointer-events:none;
+z-index:9998;
+}
+
+/* ─── NAV ─── */
+nav{
+position:sticky;top:0;z-index:100;
+display:flex;align-items:center;justify-content:space-between;
+padding:0 24px;
+height:60px;
+background:rgba(10,10,15,.82);
+backdrop-filter:blur(14px);
+-webkit-backdrop-filter:blur(14px);
+border-bottom:1px solid var(–border-dim);
+}
+.nav-brand{
+font-family:var(–font-mono);
+font-size:18px;font-weight:700;
+letter-spacing:3px;
+color:#fff;
+text-decoration:none;
+text-shadow:0 0 18px var(–accent-glow);
+}
+.nav-brand span{color:var(–accent)}
+
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{
+color:var(–text-dim);
+text-decoration:none;
+font-size:13px;
+padding:6px 12px;
+border-radius:6px;
+transition:color .2s,background .2s;
+white-space:nowrap;
+}
+.nav-links a:hover{color:#fff;background:var(–accent-glow-soft)}
+
+/* hamburger – mobile */
+.nav-toggle{
+display:none;
+flex-direction:column;gap:5px;
+background:none;border:none;cursor:pointer;padding:4px;
+}
+.nav-toggle span{
+display:block;width:22px;height:2px;
+background:var(–text);border-radius:2px;
+transition:transform .25s,opacity .25s;
+}
+
+/* ─── MAIN LAYOUT ─── */
+main{position:relative;z-index:1}
+
+section{padding:72px 24px;max-width:880px;margin:0 auto}
+
+.section-label{
+font-family:var(–font-mono);
+font-size:11px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:var(–accent);
+margin-bottom:12px;
+}
+.section-title{
+font-size:clamp(22px,5vw,32px);
+font-weight:700;color:#fff;
+margin-bottom:8px;
+line-height:1.2;
+}
+.section-sub{
+color:var(–text-dim);
+font-size:15px;max-width:540px;
+margin-bottom:36px;
+}
+
+/* ─── HERO ─── */
+#hero{
+position:relative;
+min-height:calc(100vh - 60px);
+display:flex;flex-direction:column;
+align-items:center;justify-content:center;
+text-align:center;
+padding:80px 24px 60px;
+overflow:hidden;
+}
+
+/* ambient glow orb */
+#hero::before{
+content:’’;
+position:absolute;
+width:520px;height:520px;
+border-radius:50%;
+background:radial-gradient(circle,var(–accent-glow) 0%,transparent 72%);
+top:50%;left:50%;
+transform:translate(-50%,-50%);
+filter:blur(40px);
+pointer-events:none;
+}
+
+.hero-eyebrow{
+font-family:var(–font-mono);
+font-size:11px;letter-spacing:4px;
+text-transform:uppercase;
+color:var(–accent-light);
+margin-bottom:20px;
+position:relative;z-index:1;
+}
+.hero-title{
+font-family:var(–font-mono);
+font-size:clamp(52px,14vw,96px);
+font-weight:800;
+letter-spacing:6px;
+color:#fff;
+text-shadow:0 0 60px var(–accent-glow),0 0 12px var(–accent-glow);
+line-height:1;
+position:relative;z-index:1;
+animation:fadeUp .8s ease both;
+}
+.hero-sub{
+margin-top:20px;
+font-size:clamp(14px,3.2vw,17px);
+color:var(–text-dim);
+max-width:480px;
+position:relative;z-index:1;
+animation:fadeUp .8s .15s ease both;
+}
+.hero-sub em{color:var(–accent-light);font-style:normal;font-weight:600}
+
+.hero-actions{
+margin-top:40px;
+display:flex;flex-wrap:wrap;
+gap:12px;justify-content:center;
+position:relative;z-index:1;
+animation:fadeUp .8s .3s ease both;
+}
+
+/* ─── BUTTONS ─── */
+.btn{
+display:inline-flex;align-items:center;gap:8px;
+padding:13px 24px;
+border-radius:8px;
+font-size:14px;font-weight:600;
+text-decoration:none;
+transition:transform .15s,box-shadow .2s,background .2s;
+cursor:pointer;border:none;
+white-space:nowrap;
+}
+.btn:active{transform:scale(.96)}
+
+.btn-primary{
+background:var(–accent);
+color:#fff;
+box-shadow:0 4px 24px var(–accent-glow);
+}
+.btn-primary:hover{
+background:var(–accent-light);
+box-shadow:0 6px 32px var(–accent-glow);
+}
+
+.btn-ghost{
+background:transparent;
+color:var(–text);
+border:1px solid var(–border);
+}
+.btn-ghost:hover{
+background:var(–accent-glow-soft);
+border-color:var(–accent);
+}
+
+/* ─── CARDS GRID ─── */
+.card-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+gap:16px;
+}
+.card{
+background:var(–bg-card);
+border:1px solid var(–border-dim);
+border-radius:var(–radius);
+padding:22px;
+transition:border-color .2s,background .2s,transform .15s;
+}
+.card:hover{
+border-color:var(–border);
+background:var(–bg-card-hover);
+transform:translateY(-2px);
+}
+.card-icon{
+width:36px;height:36px;
+border-radius:8px;
+background:var(–accent-glow-soft);
+display:flex;align-items:center;justify-content:center;
+margin-bottom:14px;
+font-size:18px;
+}
+.card-title{font-weight:600;color:#fff;font-size:15px;margin-bottom:6px}
+.card-text{font-size:13px;color:var(–text-dim);line-height:1.5}
+.card a{color:var(–accent-light);text-decoration:none;font-size:13px;font-weight:600}
+.card a:hover{text-decoration:underline}
+
+/* ─── EVIDENCE VAULT ─── */
+.vault-links{
+display:flex;flex-direction:column;gap:10px;
+margin-bottom:28px;
+}
+.vault-link{
+display:flex;align-items:center;gap:14px;
+background:var(–bg-card);
+border:1px solid var(–border-dim);
+border-radius:var(–radius);
+padding:16px 20px;
+text-decoration:none;
+transition:border-color .2s,background .2s;
+}
+.vault-link:hover{border-color:var(–border);background:var(–bg-card-hover)}
+.vault-link-icon{
+width:34px;height:34px;border-radius:8px;
+background:var(–accent-glow-soft);
+display:flex;align-items:center;justify-content:center;
+flex-shrink:0;font-size:16px;
+}
+.vault-link-body{flex:1;min-width:0}
+.vault-link-label{font-weight:600;color:#fff;font-size:14px}
+.vault-link-url{font-family:var(–font-mono);font-size:11px;color:var(–text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.vault-link-arrow{color:var(–accent);font-size:18px;flex-shrink:0}
+
+/* integrity card */
+.integrity-card{
+background:linear-gradient(135deg,var(–accent-glow-soft),rgba(16,16,24,.8));
+border:1px solid var(–border);
+border-radius:var(–radius);
+padding:20px;
+display:flex;gap:16px;align-items:flex-start;
+}
+.integrity-icon{
+width:38px;height:38px;border-radius:10px;
+background:var(–accent-glow-soft);
+display:flex;align-items:center;justify-content:center;
+flex-shrink:0;font-size:18px;
+}
+.integrity-text{font-size:13px;color:var(–text-dim);line-height:1.55}
+.integrity-text strong{color:var(–accent-light)}
+
+/* ─── PROTOCOL ─── */
+.protocol-steps{display:flex;flex-direction:column;gap:0;margin-bottom:36px}
+.protocol-step{
+display:flex;align-items:flex-start;gap:16px;
+padding:16px 0;
+border-bottom:1px solid var(–border-dim);
+}
+.protocol-step:last-child{border-bottom:none}
+.step-num{
+flex-shrink:0;
+width:32px;height:32px;border-radius:50%;
+background:var(–bg-card);border:2px solid var(–accent);
+display:flex;align-items:center;justify-content:center;
+font-family:var(–font-mono);font-size:13px;font-weight:700;
+color:var(–accent);
+margin-top:2px;
+}
+.step-body h4{color:#fff;font-size:14px;font-weight:600;margin-bottom:2px}
+.step-body p{color:var(–text-dim);font-size:13px}
+
+/* quick commands */
+.commands-block{
+background:var(–bg-card);
+border:1px solid var(–border-dim);
+border-radius:var(–radius);
+overflow:hidden;
+}
+.commands-header{
+padding:12px 20px;
+background:rgba(124,58,237,.08);
+border-bottom:1px solid var(–border-dim);
+font-family:var(–font-mono);
+font-size:12px;color:var(–text-dim);
+letter-spacing:1.5px;text-transform:uppercase;
+}
+.cmd-row{
+display:flex;align-items:center;justify-content:space-between;
+padding:12px 20px;
+border-bottom:1px solid var(–border-dim);
+gap:12px;
+}
+.cmd-row:last-child{border-bottom:none}
+.cmd-label{font-family:var(–font-mono);font-size:13px;color:var(–text)}
+.cmd-label span{color:var(–accent-light)}
+
+.btn-copy{
+flex-shrink:0;
+background:var(–accent-glow-soft);
+border:1px solid var(–border);
+border-radius:6px;
+padding:6px 14px;
+font-size:12px;font-weight:600;
+color:var(–accent-light);
+cursor:pointer;
+transition:background .2s,color .2s;
+font-family:var(–font-sans);
+}
+.btn-copy:hover{background:var(–accent-glow);color:#fff}
+
+/* ─── AUTOMATIONS ─── */
+.automation-intro{
+background:var(–bg-card);
+border:1px solid var(–border-dim);
+border-radius:var(–radius);
+padding:22px;
+margin-bottom:28px;
+display:flex;gap:18px;align-items:flex-start;
+}
+.auto-icon-big{
+width:44px;height:44px;border-radius:12px;
+background:var(–accent-glow-soft);
+display:flex;align-items:center;justify-content:center;
+flex-shrink:0;font-size:22px;
+}
+.auto-intro-text h4{color:#fff;font-size:15px;font-weight:600;margin-bottom:4px}
+.auto-intro-text p{color:var(–text-dim);font-size:13px;line-height:1.55}
+.auto-intro-text .chain{
+margin-top:10px;
+font-family:var(–font-mono);font-size:12px;
+color:var(–accent-light);
+display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
+.chain-node{
+background:var(–accent-glow-soft);
+padding:3px 10px;border-radius:20px;
+border:1px solid var(–border);
+}
+.chain-arrow{color:var(–text-dim)}
+
+.auto-tile{
+background:var(–bg-card);
+border:1px solid var(–border-dim);
+border-radius:var(–radius);
+padding:22px;
+transition:border-color .2s,background .2s;
+}
+.auto-tile:hover{border-color:var(–border);background:var(–bg-card-hover)}
+.auto-tile-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.auto-tile-icon{
+width:36px;height:36px;border-radius:8px;
+background:var(–accent-glow-soft);
+display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.auto-tile-name{font-weight:700;color:#fff;font-size:15px}
+.auto-tile .meta{display:flex;flex-direction:column;gap:8px}
+.meta-row{display:flex;gap:8px;align-items:flex-start}
+.meta-key{
+font-family:var(–font-mono);font-size:10px;
+letter-spacing:1px;text-transform:uppercase;
+color:var(–accent);
+flex-shrink:0;width:56px;margin-top:1px;
+}
+.meta-val{font-size:13px;color:var(–text-dim)}
+
+/* ─── CONTACT ─── */
+.contact-wrap{
+max-width:560px;
+background:var(–bg-card);
+border:1px solid var(–border-dim);
+border-radius:var(–radius);
+padding:36px 28px;
+text-align:center;
+}
+.contact-wrap .section-title{text-align:center}
+.contact-wrap .section-sub{margin:0 auto 28px;text-align:center}
+.contact-email{
+display:inline-flex;align-items:center;gap:10px;
+background:var(–accent-glow-soft);
+border:1px solid var(–border);
+border-radius:8px;
+padding:12px 22px;
+text-decoration:none;
+color:var(–accent-light);
+font-family:var(–font-mono);font-size:14px;font-weight:600;
+transition:background .2s,box-shadow .2s;
+}
+.contact-email:hover{
+background:var(–accent-glow);
+box-shadow:0 4px 20px var(–accent-glow);
+}
+.disclaimer{
+margin-top:24px;
+font-size:11px;color:var(–text-dim);
+line-height:1.5;max-width:420px;margin-left:auto;margin-right:auto;
+}
+
+/* ─── FOOTER ─── */
+footer{
+border-top:1px solid var(–border-dim);
+padding:28px 24px;
+text-align:center;
+color:var(–text-dim);
+font-size:13px;
+}
+footer .brand-mono{
+font-family:var(–font-mono);
+color:#fff;font-weight:600;letter-spacing:2px;
+}
+footer .tagline{
+display:block;
+margin-top:4px;font-size:11px;
+color:var(–accent);
+letter-spacing:2px;text-transform:uppercase;
+}
+
+/* ─── TOAST ─── */
+.toast{
+position:fixed;bottom:28px;left:50%;
+transform:translateX(-50%) translateY(120%);
+background:#fff;color:#111;
+padding:10px 22px;border-radius:24px;
+font-size:13px;font-weight:600;
+box-shadow:0 4px 24px rgba(0,0,0,.35);
+z-index:10000;
+transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+pointer-events:none;
+white-space:nowrap;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(22px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:600px){
+nav{padding:0 16px}
+.nav-links{display:none;position:absolute;top:60px;left:0;right:0;
+flex-direction:column;gap:2px;
+background:rgba(10,10,15,.95);
+backdrop-filter:blur(16px);
+-webkit-backdrop-filter:blur(16px);
+border-bottom:1px solid var(–border-dim);
+padding:12px 12px 18px;
+animation:slideDown .2s ease;
+}
+.nav-links.open{display:flex}
+.nav-links a{padding:10px 14px;font-size:14px}
+.nav-toggle{display:flex}
+
+section{padding:56px 18px}
+#hero{min-height:auto;padding:100px 18px 70px}
+.hero-title{letter-spacing:2px}
+
+.card-grid{grid-template-columns:1fr}
+.cmd-row{padding:12px 14px}
+.cmd-label{font-size:12px}
+.contact-wrap{padding:28px 18px}
+.automation-intro{flex-direction:column;align-items:center;text-align:center}
+.auto-intro-text .chain{justify-content:center}
+}
+
+@keyframes slideDown{
+from{opacity:0;transform:translateY(-8px)}
+to{opacity:1;transform:translateY(0)}
+}
+</style>
+
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+
+<nav>
+  <a href="#hero" class="nav-brand">SYNTHE<span>X</span>IT</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks" role="navigation" aria-label="Main">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#vault">Evidence Vault</a></li>
+    <li><a href="#protocol">Protocol</a></li>
+    <li><a href="#automations">Automations</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ─── HERO ─── -->
+
+<section id="hero">
+  <p class="hero-eyebrow">▸ Command Console v1.0</p>
+  <h1 class="hero-title">SYNTHEXIT</h1>
+  <p class="hero-sub">The IT in <em>I.T.</em> — Legal Tech &amp; Civil Rights Advocacy</p>
+  <div class="hero-actions">
+    <a href="#vault" class="btn btn-primary">Open Evidence Vault</a>
+    <a href="#protocol" class="btn btn-ghost">File an Event</a>
+  </div>
+</section>
+
+<!-- ─── EVIDENCE VAULT ─── -->
+
+<section id="vault">
+  <p class="section-label">▸ Evidence Vault</p>
+  <h2 class="section-title">Auditable Evidence Store</h2>
+  <p class="section-sub">All filings, artifacts, and event records are version-controlled and timestamped via GitHub. Every commit is a permanent, public proof-of-record.</p>
+
+  <div class="vault-links">
+    <a href="https://github.com/dassociation22-code/synthexit.github.io" target="_blank" rel="noopener" class="vault-link">
+      <div class="vault-link-icon">📂</div>
+      <div class="vault-link-body">
+        <div class="vault-link-label">GitHub Repository</div>
+        <div class="vault-link-url">github.com/dassociation22-code/synthexit.github.io</div>
+      </div>
+      <div class="vault-link-arrow">→</div>
+    </a>
+    <a href="https://github.com/dassociation22-code/synthexit.github.io/issues" target="_blank" rel="noopener" class="vault-link">
+      <div class="vault-link-icon">📋</div>
+      <div class="vault-link-body">
+        <div class="vault-link-label">Issues Log</div>
+        <div class="vault-link-url">github.com/dassociation22-code/synthexit.github.io/issues</div>
+      </div>
+      <div class="vault-link-arrow">→</div>
+    </a>
+    <a href="https://github.com/dassociation22-code/synthexit.github.io/tree/main/files" target="_blank" rel="noopener" class="vault-link">
+      <div class="vault-link-icon">🗄️</div>
+      <div class="vault-link-body">
+        <div class="vault-link-label">Files Directory</div>
+        <div class="vault-link-url">github.com/dassociation22-code/synthexit.github.io/tree/main/files</div>
+      </div>
+      <div class="vault-link-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="integrity-card">
+    <div class="integrity-icon">🛡️</div>
+    <div class="integrity-text">
+      <strong>Integrity Protocol —</strong> Every file committed to this repo generates an automatic Git timestamp. Commits function as an immutable ledger. GitHub Issues serve as the official event log — each entry is date-stamped, searchable, and publicly auditable. This structure is admissible as a chain-of-custody record.
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROTOCOL ─── -->
+
+<section id="protocol">
+  <p class="section-label">▸ Protocol</p>
+  <h2 class="section-title">SYNTHEXIT Protocol</h2>
+  <p class="section-sub">Five-step workflow for logging, preserving, and escalating any civil-rights event in real time.</p>
+
+  <div class="protocol-steps">
+    <div class="protocol-step">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h4>Capture</h4>
+        <p>Record the event immediately — date, time, location, parties involved, and direct quotes or observations.</p>
+      </div>
+    </div>
+    <div class="protocol-step">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h4>Preserve</h4>
+        <p>Upload all evidence (screenshots, docs, audio refs) to the Files Directory. Never alter originals.</p>
+      </div>
+    </div>
+    <div class="protocol-step">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h4>Log</h4>
+        <p>Open a new GitHub Issue using the standard template. Link every piece of evidence. Assign a hash placeholder.</p>
+      </div>
+    </div>
+    <div class="protocol-step">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <h4>Verify</h4>
+        <p>Confirm the commit timestamp. Cross-reference with any prior issues. Validate file hashes.</p>
+      </div>
+    </div>
+    <div class="protocol-step">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <h4>Escalate</h4>
+        <p>Route the logged event to the appropriate agency or legal channel via the Automations pipeline.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Commands -->
+
+  <div class="commands-block">
+    <div class="commands-header">⌘ Quick Commands</div>
+
+```
+<div class="cmd-row">
+  <span class="cmd-label"><span>$</span> open:repo</span>
+  <button class="btn-copy" data-copy="https://github.com/dassociation22-code/synthexit.github.io">Copy</button>
+</div>
+<div class="cmd-row">
+  <span class="cmd-label"><span>$</span> open:issues</span>
+  <button class="btn-copy" data-copy="https://github.com/dassociation22-code/synthexit.github.io/issues">Copy</button>
+</div>
+<div class="cmd-row">
+  <span class="cmd-label"><span>$</span> open:files</span>
+  <button class="btn-copy" data-copy="https://github.com/dassociation22-code/synthexit.github.io/tree/main/files">Copy</button>
+</div>
+<div class="cmd-row">
+  <span class="cmd-label"><span>$</span> new:issue-template</span>
+  <button class="btn-copy" data-copy-template>Copy Template</button>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ─── AUTOMATIONS ─── -->
+
+<section id="automations">
+  <p class="section-label">▸ Automations</p>
+  <h2 class="section-title">Handshake Network</h2>
+  <p class="section-sub">A lightweight automation layer that keeps evidence, notifications, and archives in sync across platforms — no code required after initial setup.</p>
+
+  <div class="automation-intro">
+    <div class="auto-icon-big">⚡</div>
+    <div class="auto-intro-text">
+      <h4>How the Handshake Network Works</h4>
+      <p>GitHub activity triggers automations via Make (formerly Integromat). Events flow outward to email notifications, archive mirrors, and structured logs — creating a self-sustaining evidence pipeline with zero manual intervention after setup.</p>
+      <div class="chain">
+        <span class="chain-node">GitHub</span>
+        <span class="chain-arrow">→</span>
+        <span class="chain-node">Make</span>
+        <span class="chain-arrow">→</span>
+        <span class="chain-node">Email</span>
+        <span class="chain-arrow">+</span>
+        <span class="chain-node">Archive</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="auto-tile">
+      <div class="auto-tile-header">
+        <div class="auto-tile-icon">👁️</div>
+        <div class="auto-tile-name">Commit Watcher</div>
+      </div>
+      <div class="meta">
+        <div class="meta-row"><span class="meta-key">Purpose</span><span class="meta-val">Monitors the main repo for any new commits and flags them in real time.</span></div>
+        <div class="meta-row"><span class="meta-key">Trigger</span><span class="meta-val">New commit pushed to main branch.</span></div>
+        <div class="meta-row"><span class="meta-key">Output</span><span class="meta-val">Email alert + timestamped log entry.</span></div>
+      </div>
+    </div>
+
+```
+<div class="auto-tile">
+  <div class="auto-tile-header">
+    <div class="auto-tile-icon">📝</div>
+    <div class="auto-tile-name">Issue Logger</div>
+  </div>
+  <div class="meta">
+    <div class="meta-row"><span class="meta-key">Purpose</span><span class="meta-val">Auto-captures every new Issue opened and routes it to a structured archive.</span></div>
+    <div class="meta-row"><span class="meta-key">Trigger</span><span class="meta-val">New Issue created in the Issues tab.</span></div>
+    <div class="meta-row"><span class="meta-key">Output</span><span class="meta-val">Archived JSON record + notification email.</span></div>
+  </div>
+</div>
+
+<div class="auto-tile">
+  <div class="auto-tile-header">
+    <div class="auto-tile-icon">🪞</div>
+    <div class="auto-tile-name">Evidence Mirror</div>
+  </div>
+  <div class="meta">
+    <div class="meta-row"><span class="meta-key">Purpose</span><span class="meta-val">Creates a redundant backup of the files directory to an external archive.</span></div>
+    <div class="meta-row"><span class="meta-key">Trigger</span><span class="meta-val">New file added to /files on main.</span></div>
+    <div class="meta-row"><span class="meta-key">Output</span><span class="meta-val">Mirrored copy to archive + integrity checksum log.</span></div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+
+<section id="contact">
+  <div class="contact-wrap">
+    <p class="section-label" style="text-align:center">▸ Contact</p>
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="section-sub">For inquiries related to SYNTHEXIT, legal-tech operations, or advocacy coordination — reach out directly.</p>
+    <a href="mailto:dassociation22@icloud.com" class="contact-email">✉ dassociation22@icloud.com</a>
+    <p class="disclaimer">SYNTHEXIT is an informational and operational resource. Nothing published here constitutes legal advice. Please consult a licensed attorney for guidance specific to your situation.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+
+<footer>
+  <span class="brand-mono">© SYNTHEXIT — The IT in I.T.</span>
+  <span class="tagline">Built for auditability.</span>
+</footer>
+
+<!-- ─── TOAST ─── -->
+
+<div class="toast" id="toast"></div>
+
+<!-- ─── JS ─── -->
+
+<script>
+(function(){
+
+// ── Mobile nav toggle ──
+var toggle = document.getElementById('navToggle');
+var links  = document.getElementById('navLinks');
+toggle.addEventListener('click', function(){
+  links.classList.toggle('open');
+});
+// close on link click
+links.querySelectorAll('a').forEach(function(a){
+  a.addEventListener('click', function(){ links.classList.remove('open'); });
+});
+
+// ── Toast helper ──
+var toast   = document.getElementById('toast');
+var toastT  = null;
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  if(toastT) clearTimeout(toastT);
+  toastT = setTimeout(function(){ toast.classList.remove('show'); }, 1600);
+}
+
+// ── Issue template string ──
+var issueTemplate = [
+  '---',
+  'date: YYYY-MM-DD',
+  'time: HH:MM (timezone)',
+  'event_type: [incident | filing | communication | other]',
+  '---',
+  '',
+  '## Event Summary',
+  'Brief description of what occurred.',
+  '',
+  '## Evidence Links',
+  '- [ ] Screenshot / doc: [link]',
+  '- [ ] Audio ref: [link]',
+  '- [ ] Correspondence: [link]',
+  '',
+  '## File Hash',
+  '`SHA-256: [PLACEHOLDER — paste verified hash here]`',
+  '',
+  '## Status',
+  '- [ ] Captured',
+  '- [ ] Preserved in /files',
+  '- [ ] Logged here',
+  '- [ ] Verified',
+  '- [ ] Escalated'
+].join('\n');
+
+// ── Copy buttons ──
+document.querySelectorAll('.btn-copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var text;
+    if(btn.hasAttribute('data-copy-template')){
+      text = issueTemplate;
+    } else {
+      text = btn.getAttribute('data-copy');
+    }
+    if(!text) return;
+
+    // modern + fallback
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(text).then(function(){
+        showToast('Copied to clipboard ✓');
+      }).catch(function(){
+        fallbackCopy(text);
+      });
+    } else {
+      fallbackCopy(text);
+    }
+  });
+});
+
+function fallbackCopy(text){
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  ta.style.top = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showToast('Copied to clipboard ✓'); }
+  catch(e){ showToast('Copy failed — try manually'); }
+  document.body.removeChild(ta);
+}
+
+})();
+</script>
+
+</body>
+</html>
