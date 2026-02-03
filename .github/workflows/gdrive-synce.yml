@@ -1,0 +1,425 @@
+name: 📂 Google Drive → GitHub Sync
+
+# ════════════════════════════════════════════════════════════════════════════
+
+# SYNTHEXIT Google Drive Integration
+
+# Automatically sync Drive files to GitHub repo for version control + provenance
+
+# ════════════════════════════════════════════════════════════════════════════
+
+on:
+
+# Manual trigger with folder ID
+
+workflow_dispatch:
+inputs:
+folder_id:
+description: ‘Google Drive Folder ID (from URL)’
+required: true
+type: string
+target_path:
+description: ‘Target path in repo (e.g., evidence/2026-02)’
+required: true
+type: string
+sync_mode:
+description: ‘Sync mode’
+required: false
+default: ‘new_only’
+type: choice
+options:
+- new_only      # Only download new files
+- full_sync     # Re-download everything
+- incremental   # Smart sync based on modified date
+
+# Scheduled sync (every 6 hours)
+
+schedule:
+- cron: ‘0 */6 * * *’  # Every 6 hours
+
+# Trigger via repository_dispatch from Make.com
+
+repository_dispatch:
+types: [gdrive_sync, evidence_upload]
+
+permissions:
+contents: write
+issues: write
+
+jobs:
+
+# ══════════════════════════════════════════════════════════════════════════
+
+# JOB 1: Sync Google Drive to GitHub
+
+# ══════════════════════════════════════════════════════════════════════════
+
+sync-drive:
+name: 🔄 Sync Drive Files
+runs-on: ubuntu-latest
+env:
+# These come from GitHub Secrets (you’ll add these)
+GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_SERVICE_ACCOUNT }}
+
+```
+steps:
+  - name: Checkout Repository
+    uses: actions/checkout@v4
+    with:
+      fetch-depth: 0
+
+  - name: Set up Python
+    uses: actions/setup-python@v5
+    with:
+      python-version: '3.11'
+
+  - name: Install Dependencies
+    run: |
+      pip install --quiet google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+
+  - name: Determine Sync Parameters
+    id: params
+    run: |
+      # Default folder IDs for scheduled runs
+      # Override these with your actual Drive folder IDs
+      EVIDENCE_FOLDER="${{ secrets.GDRIVE_EVIDENCE_FOLDER_ID }}"
+      LEGAL_FOLDER="${{ secrets.GDRIVE_LEGAL_FOLDER_ID }}"
+      
+      # For manual/dispatch triggers
+      if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+        echo "folder_id=${{ github.event.inputs.folder_id }}" >> $GITHUB_OUTPUT
+        echo "target_path=${{ github.event.inputs.target_path }}" >> $GITHUB_OUTPUT
+        echo "sync_mode=${{ github.event.inputs.sync_mode }}" >> $GITHUB_OUTPUT
+      elif [[ "${{ github.event_name }}" == "repository_dispatch" ]]; then
+        echo "folder_id=${{ github.event.client_payload.folder_id }}" >> $GITHUB_OUTPUT
+        echo "target_path=${{ github.event.client_payload.target_path }}" >> $GITHUB_OUTPUT
+        echo "sync_mode=incremental" >> $GITHUB_OUTPUT
+      else
+        # Scheduled run - sync evidence folder by default
+        echo "folder_id=${EVIDENCE_FOLDER}" >> $GITHUB_OUTPUT
+        echo "target_path=evidence/$(date +%Y-%m)" >> $GITHUB_OUTPUT
+        echo "sync_mode=new_only" >> $GITHUB_OUTPUT
+      fi
+
+  - name: Create Sync Script
+    run: |
+      cat > sync_drive.py <<'PYTHON_SCRIPT'
+      #!/usr/bin/env python3
+      """
+      SYNTHEXIT Google Drive → GitHub Sync
+      Downloads files from specified Drive folder to local repo path
+      """
+      import os
+      import sys
+      import json
+      import mimetypes
+      from pathlib import Path
+      from datetime import datetime
+      
+      from google.oauth2 import service_account
+      from googleapiclient.discovery import build
+      from googleapiclient.http import MediaIoBaseDownload
+      
+      # Configuration
+      SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+      CREDENTIALS_JSON = os.getenv('GDRIVE_CREDENTIALS')
+      FOLDER_ID = os.getenv('FOLDER_ID')
+      TARGET_PATH = os.getenv('TARGET_PATH')
+      SYNC_MODE = os.getenv('SYNC_MODE', 'new_only')
+      
+      # Google Docs export MIME types
+      EXPORT_MIMETYPES = {
+          'application/vnd.google-apps.document': 'application/pdf',
+          'application/vnd.google-apps.spreadsheet': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          'application/vnd.google-apps.presentation': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      }
+      
+      def authenticate():
+          """Authenticate with Google Drive API"""
+          if not CREDENTIALS_JSON:
+              print("❌ Error: GDRIVE_CREDENTIALS not set", file=sys.stderr)
+              sys.exit(1)
+          
+          creds_dict = json.loads(CREDENTIALS_JSON)
+          credentials = service_account.Credentials.from_service_account_info(
+              creds_dict, scopes=SCOPES
+          )
+          return build('drive', 'v3', credentials=credentials)
+      
+      def list_files_in_folder(service, folder_id):
+          """List all files in a Drive folder"""
+          query = f"'{folder_id}' in parents and trashed=false"
+          results = service.files().list(
+              q=query,
+              fields="files(id, name, mimeType, modifiedTime, size)",
+              pageSize=1000
+          ).execute()
+          
+          return results.get('files', [])
+      
+      def download_file(service, file_id, file_name, mime_type, target_dir):
+          """Download a file from Drive"""
+          target_path = Path(target_dir) / file_name
+          target_path.parent.mkdir(parents=True, exist_ok=True)
+          
+          # Check if Google Workspace file (needs export)
+          if mime_type in EXPORT_MIMETYPES:
+              export_mime = EXPORT_MIMETYPES[mime_type]
+              extension = mimetypes.guess_extension(export_mime) or '.pdf'
+              
+              # Adjust filename
+              if not file_name.endswith(extension):
+                  target_path = target_path.with_suffix(extension)
+              
+              print(f"📄 Exporting: {file_name} → {target_path.name}")
+              
+              request = service.files().export_media(
+                  fileId=file_id,
+                  mimeType=export_mime
+              )
+          else:
+              print(f"📥 Downloading: {file_name}")
+              request = service.files().get_media(fileId=file_id)
+          
+          # Download
+          with open(target_path, 'wb') as f:
+              downloader = MediaIoBaseDownload(f, request)
+              done = False
+              while not done:
+                  status, done = downloader.next_chunk()
+          
+          print(f"✅ Saved: {target_path}")
+          return target_path
+      
+      def should_sync_file(file_name, sync_mode, target_dir):
+          """Determine if file should be synced based on mode"""
+          target_path = Path(target_dir) / file_name
+          
+          if sync_mode == 'full_sync':
+              return True
+          elif sync_mode == 'new_only':
+              return not target_path.exists()
+          elif sync_mode == 'incremental':
+              # TODO: Compare modification times
+              return not target_path.exists()
+          
+          return True
+      
+      def main():
+          print("🔄 SYNTHEXIT Drive Sync Initiated")
+          print(f"📂 Folder ID: {FOLDER_ID}")
+          print(f"🎯 Target Path: {TARGET_PATH}")
+          print(f"⚙️  Sync Mode: {SYNC_MODE}")
+          print("─" * 50)
+          
+          # Authenticate
+          service = authenticate()
+          
+          # List files
+          files = list_files_in_folder(service, FOLDER_ID)
+          print(f"📋 Found {len(files)} files in Drive folder")
+          
+          if not files:
+              print("⚠️  No files to sync")
+              return
+          
+          # Download files
+          synced = 0
+          skipped = 0
+          
+          for file in files:
+              file_name = file['name']
+              
+              if should_sync_file(file_name, SYNC_MODE, TARGET_PATH):
+                  try:
+                      download_file(
+                          service,
+                          file['id'],
+                          file_name,
+                          file['mimeType'],
+                          TARGET_PATH
+                      )
+                      synced += 1
+                  except Exception as e:
+                      print(f"❌ Error downloading {file_name}: {e}", file=sys.stderr)
+              else:
+                  print(f"⏭️  Skipped (exists): {file_name}")
+                  skipped += 1
+          
+          print("─" * 50)
+          print(f"✅ Sync Complete: {synced} downloaded, {skipped} skipped")
+          
+          # Save sync manifest
+          manifest = {
+              'sync_time': datetime.utcnow().isoformat() + 'Z',
+              'folder_id': FOLDER_ID,
+              'target_path': TARGET_PATH,
+              'sync_mode': SYNC_MODE,
+              'files_synced': synced,
+              'files_skipped': skipped,
+              'total_files': len(files)
+          }
+          
+          manifest_path = Path(TARGET_PATH) / '.sync_manifest.json'
+          manifest_path.parent.mkdir(parents=True, exist_ok=True)
+          with open(manifest_path, 'w') as f:
+              json.dump(manifest, f, indent=2)
+          
+          print(f"📝 Manifest saved: {manifest_path}")
+      
+      if __name__ == '__main__':
+          main()
+      PYTHON_SCRIPT
+      
+      chmod +x sync_drive.py
+
+  - name: Run Drive Sync
+    env:
+      FOLDER_ID: ${{ steps.params.outputs.folder_id }}
+      TARGET_PATH: ${{ steps.params.outputs.target_path }}
+      SYNC_MODE: ${{ steps.params.outputs.sync_mode }}
+    run: |
+      python sync_drive.py
+
+  - name: Generate File Hashes
+    run: |
+      TARGET_PATH="${{ steps.params.outputs.target_path }}"
+      
+      if [ -d "$TARGET_PATH" ]; then
+        echo "🔐 Generating SHA-256 hashes..."
+        find "$TARGET_PATH" -type f ! -name "*.sha256" ! -name ".sync_manifest.json" | while read file; do
+          sha256sum "$file" > "${file}.sha256"
+          echo "✓ $(basename "$file")"
+        done
+      fi
+
+  - name: Commit Changes to Repo
+    run: |
+      git config user.name "SYNTHEXIT-DRIVE-SYNC"
+      git config user.email "synthexit-drive@noreply.github.com"
+      
+      TARGET_PATH="${{ steps.params.outputs.target_path }}"
+      
+      git add "$TARGET_PATH"
+      
+      if git diff --staged --quiet; then
+        echo "⚠️  No changes to commit"
+      else
+        SYNC_TIME=$(date -Iseconds)
+        git commit -m "🔄 Drive Sync: $TARGET_PATH @ $SYNC_TIME
+```
+
+Folder ID: ${{ steps.params.outputs.folder_id }}
+Sync Mode: ${{ steps.params.outputs.sync_mode }}
+Trigger: ${{ github.event_name }}
+
+Automated by SYNTHEXIT ULTRON-SNAKE”
+
+```
+        git push
+        echo "✅ Changes committed and pushed"
+      fi
+
+  - name: Create Summary Issue (if new files)
+    if: success()
+    uses: actions/github-script@v7
+    with:
+      script: |
+        const fs = require('fs');
+        const path = require('path');
+        
+        const targetPath = '${{ steps.params.outputs.target_path }}';
+        const manifestPath = path.join(targetPath, '.sync_manifest.json');
+        
+        if (!fs.existsSync(manifestPath)) {
+          console.log('No manifest found, skipping issue creation');
+          return;
+        }
+        
+        const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+        
+        if (manifest.files_synced === 0) {
+          console.log('No new files synced, skipping issue creation');
+          return;
+        }
+        
+        const issueBody = `## 🔄 Google Drive Sync Complete
+        
+        **Folder ID:** \`${{ steps.params.outputs.folder_id }}\`
+        **Target Path:** \`${targetPath}\`
+        **Sync Mode:** \`${{ steps.params.outputs.sync_mode }}\`
+        
+        ### Results
+        
+        - ✅ Files Downloaded: **${manifest.files_synced}**
+        - ⏭️ Files Skipped: **${manifest.files_skipped}**
+        - 📊 Total Files: **${manifest.total_files}**
+        
+        ### Verification
+        
+        All files have been hashed with SHA-256. Verify integrity:
+        
+        \`\`\`bash
+        cd ${targetPath}
+        sha256sum -c *.sha256
+        \`\`\`
+        
+        ---
+        _Automated by SYNTHEXIT Drive Sync @ ${manifest.sync_time}_`;
+        
+        await github.rest.issues.create({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          title: `🔄 Drive Sync: ${manifest.files_synced} files → ${targetPath}`,
+          body: issueBody,
+          labels: ['drive', 'automation', 'evidence']
+        });
+```
+
+# ══════════════════════════════════════════════════════════════════════════
+
+# JOB 2: Update SYNTHEXIT Index
+
+# ══════════════════════════════════════════════════════════════════════════
+
+update-index:
+name: 📑 Update Evidence Index
+needs: sync-drive
+runs-on: ubuntu-latest
+permissions:
+contents: write
+steps:
+- uses: actions/checkout@v4
+with:
+ref: main
+
+```
+  - name: Generate Evidence Index
+    run: |
+      cat > EVIDENCE_INDEX.md <<'EOF'
+      # SYNTHEXIT Evidence Index
+      
+      **Last Updated:** $(date -Iseconds)
+      
+      ## Directory Structure
+      
+      EOF
+      
+      # Generate tree of evidence directory
+      if [ -d "evidence" ]; then
+        tree -L 3 -h --du evidence/ >> EVIDENCE_INDEX.md 2>/dev/null || \
+        find evidence -type f | sort >> EVIDENCE_INDEX.md
+      fi
+      
+      echo "" >> EVIDENCE_INDEX.md
+      echo "---" >> EVIDENCE_INDEX.md
+      echo "_Auto-generated by SYNTHEXIT_" >> EVIDENCE_INDEX.md
+
+  - name: Commit Index
+    run: |
+      git config user.name "SYNTHEXIT-BOT"
+      git config user.email "synthexit@noreply.github.com"
+      git add EVIDENCE_INDEX.md
+      git commit -m "📑 Update evidence index" || echo "No changes"
+      git push || echo "Nothing to push"
+```
