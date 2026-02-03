@@ -27,12 +27,19 @@ on:
 # External trigger via Make.com or API
 
 repository_dispatch:
-types: [synthexit_ops, ultron_dispatch, snake_mode]
+    types: [synthexit_ops, ultron_dispatch, snake_mode]
 
-# Manual trigger with JSON payload
-
-workflow_dispatch:
-inputs:
+  # Manual trigger with JSON payload
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: "JSON payload for SYNTHEXIT OPS"
+        required: true
+        type: string
+        type: string
+      mode:
+        description: "Execution mode: standard, stealth, ultron"
+        required: false
 payload:
 description: “JSON payload for SYNTHEXIT OPS”
 required: true
@@ -611,3 +618,4 @@ const provenanceSuccess = ‘${{ needs.provenance.result }}’ === ‘success’
       echo ""
       echo "The IT in I.T. — Operational."
 ```
+Fix YAML syntax - remove duplicate on: keyword
