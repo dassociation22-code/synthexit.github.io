@@ -7,29 +7,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;600&family=Cinzel:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --bg:#04040A;--surface:#08080F;--border:#14142A;
-  --gold:#C8A951;--gold-dim:#7A6330;
-  --red:#CC2222;--flag-red:#CC1111;--flag-blue:#1133CC;
-  --green:#2ECC71;--blue:#4A90D9;--purple:#8B5CF6;--amber:#F59E0B;
-  --text:#D8D8CC;--muted:#44445A;
-  --mono:'IBM Plex Mono',monospace;--display:'Bebas Neue',sans-serif;
-  --cinzel:'Cinzel',serif;--serif:'Playfair Display',serif;
+  --bg:#04040A;--surface:#08080F;--border:#14142A;
+  --gold:#C8A951;--gold-dim:#7A6330;
+  --red:#CC2222;--flag-red:#CC1111;--flag-blue:#1133CC;
+  --green:#2ECC71;--blue:#4A90D9;--purple:#8B5CF6;--amber:#F59E0B;
+  --text:#D8D8CC;--muted:#44445A;
+  --mono:'IBM Plex Mono',monospace;--display:'Bebas Neue',sans-serif;
+  --cinzel:'Cinzel',serif;--serif:'Playfair Display',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:var(--mono);font-size:13px;line-height:1.7;min-height:100vh;}
+body{background:#04040A !important;color:#D8D8CC !important;font-family:var(--mono);font-size:13px;line-height:1.7;min-height:100vh;}
 
+
+/* FORCE DARK — GitHub Pages override */
+html, body, .shell, .main, .sidebar,
+[id^="page-"] {
+  background-color: #04040A !important;
+  color: #D8D8CC !important;
+}
+.command-bar, .section, .meta-grid,
+.motion-card, .law-entry, .evidence-row,
+.intel-panel, .dash-card, .gh-issue,
+.setup-step, .add-form {
+  background-color: #08080F !important;
+}
 /* FLAG WATERMARK */
 body::after{content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 620'%3E%3Crect width='1100' height='620' fill='%23CC1111'/%3E%3Crect x='1' y='1' width='1098' height='618' fill='none' stroke='%231133CC' stroke-width='28'/%3E%3Crect x='430' y='0' width='240' height='620' fill='%23F0F0F0'/%3E%3Cellipse cx='550' cy='310' rx='240' ry='155' fill='%234A90C8' stroke='%23111' stroke-width='6'/%3E%3Cellipse cx='520' cy='285' rx='130' ry='90' fill='%23336633' opacity='0.85'/%3E%3Cellipse cx='650' cy='330' rx='80' ry='55' fill='%23336633' opacity='0.7'/%3E%3C/svg%3E");
-  background-size:55%;background-position:center;background-repeat:no-repeat;
-  opacity:0.035;pointer-events:none;z-index:0;}
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 620'%3E%3Crect width='1100' height='620' fill='%23CC1111'/%3E%3Crect x='1' y='1' width='1098' height='618' fill='none' stroke='%231133CC' stroke-width='28'/%3E%3Crect x='430' y='0' width='240' height='620' fill='%23F0F0F0'/%3E%3Cellipse cx='550' cy='310' rx='240' ry='155' fill='%234A90C8' stroke='%23111' stroke-width='6'/%3E%3Cellipse cx='520' cy='285' rx='130' ry='90' fill='%23336633' opacity='0.85'/%3E%3Cellipse cx='650' cy='330' rx='80' ry='55' fill='%23336633' opacity='0.7'/%3E%3C/svg%3E");
+  background-size:55%;background-position:center;background-repeat:no-repeat;
+  opacity:0.02;pointer-events:none;z-index:0;}
 body::before{content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:0;opacity:0.7;}
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:0.7;}
 
 /* LAYOUT */
-.shell{display:flex;min-height:100vh;position:relative;z-index:1;}
+.shell{display:flex;min-height:100vh;position:relative;z-index:1;background:#04040A;}
 
 /* SIDEBAR */
 .sidebar{width:265px;flex-shrink:0;background:rgba(4,4,10,0.97);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;backdrop-filter:blur(8px);}
@@ -64,7 +77,7 @@ body::before{content:'';position:fixed;inset:0;
 .doctrine-text{font-size:9px;color:var(--muted);font-style:italic;line-height:1.7;border-left:2px solid var(--gold-dim);padding-left:10px;}
 
 /* MAIN */
-.main{flex:1;overflow-y:auto;padding:36px 48px;max-width:1100px;position:relative;}
+.main{flex:1;overflow-y:auto;padding:36px 48px;max-width:1100px;position:relative;background:#04040A;}
 .main::before{content:'';position:fixed;top:50%;left:50%;transform:translate(-20%,-50%);width:500px;height:280px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 620'%3E%3Crect width='1100' height='620' fill='%23CC1111'/%3E%3Crect x='1' y='1' width='1098' height='618' fill='none' stroke='%231133CC' stroke-width='28'/%3E%3Crect x='430' y='0' width='240' height='620' fill='%23F0F0F0'/%3E%3Cellipse cx='550' cy='310' rx='240' ry='155' fill='%234A90C8' stroke='%23111' stroke-width='6'/%3E%3Cellipse cx='520' cy='285' rx='130' ry='90' fill='%23336633' opacity='0.85'/%3E%3C/svg%3E");background-size:contain;background-repeat:no-repeat;opacity:0.02;pointer-events:none;z-index:0;}
 
 /* COMMAND BAR */
@@ -84,9 +97,9 @@ body::before{content:'';position:fixed;inset:0;
 
 /* HOME — HERO */
 .hero{
-  background:linear-gradient(135deg,rgba(200,169,81,0.06),rgba(17,51,204,0.04),transparent);
-  border:1px solid rgba(200,169,81,0.2);border-left:5px solid var(--gold);
-  padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(200,169,81,0.06),rgba(17,51,204,0.04),transparent);
+  border:1px solid rgba(200,169,81,0.2);border-left:5px solid var(--gold);
+  padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden;
 }
 .hero::after{content:'™';position:absolute;bottom:10px;right:20px;font-family:var(--cinzel);font-size:60px;color:rgba(200,169,81,0.06);font-weight:900;}
 .hero-name{font-family:var(--cinzel);font-size:32px;font-weight:900;letter-spacing:0.1em;color:var(--gold);margin-bottom:4px;text-shadow:0 0 30px rgba(200,169,81,0.3);}
@@ -104,11 +117,11 @@ body::before{content:'';position:fixed;inset:0;
 /* CASE FILE STASH BUTTONS */
 .stash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:28px;}
 .stash-btn{
-  background:var(--surface);border:1px solid var(--border);
-  padding:20px 22px;cursor:pointer;text-align:left;
-  transition:all 0.2s;display:block;text-decoration:none;
-  position:relative;overflow:hidden;
-  font-family:var(--mono);
+  background:var(--surface);border:1px solid var(--border);
+  padding:20px 22px;cursor:pointer;text-align:left;
+  transition:all 0.2s;display:block;text-decoration:none;
+  position:relative;overflow:hidden;
+  font-family:var(--mono);
 }
 .stash-btn::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;}
 .stash-btn.critical::before{background:var(--red);}
@@ -130,9 +143,9 @@ body::before{content:'';position:fixed;inset:0;
 
 /* FOUNDERS PAGE */
 .founders-intro{
-  background:linear-gradient(135deg,rgba(17,51,204,0.08),rgba(200,169,81,0.04));
-  border:1px solid rgba(17,51,204,0.2);border-left:5px solid var(--flag-blue);
-  padding:24px 28px;margin-bottom:28px;
+  background:linear-gradient(135deg,rgba(17,51,204,0.08),rgba(200,169,81,0.04));
+  border:1px solid rgba(17,51,204,0.2);border-left:5px solid var(--flag-blue);
+  padding:24px 28px;margin-bottom:28px;
 }
 .founders-quote{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--text);line-height:2;margin-bottom:10px;}
 .founders-attr{font-size:9px;color:var(--gold);letter-spacing:0.2em;font-family:var(--cinzel);}
@@ -148,15 +161,15 @@ body::before{content:'';position:fixed;inset:0;
 
 /* DECLARATION SPECIAL BLOCK */
 .declaration-block{
-  background:linear-gradient(135deg,rgba(204,34,34,0.08),rgba(17,51,204,0.06),rgba(200,169,81,0.04));
-  border:2px solid rgba(200,169,81,0.3);
-  padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(204,34,34,0.08),rgba(17,51,204,0.06),rgba(200,169,81,0.04));
+  border:2px solid rgba(200,169,81,0.3);
+  padding:32px 36px;margin-bottom:28px;position:relative;overflow:hidden;
 }
 .declaration-block::after{
-  content:'1776';
-  position:absolute;right:-10px;bottom:-20px;
-  font-family:var(--display);font-size:120px;
-  color:rgba(200,169,81,0.05);letter-spacing:0;
+  content:'1776';
+  position:absolute;right:-10px;bottom:-20px;
+  font-family:var(--display);font-size:120px;
+  color:rgba(200,169,81,0.05);letter-spacing:0;
 }
 .dec-title{font-family:var(--cinzel);font-size:22px;color:var(--gold);letter-spacing:0.12em;margin-bottom:6px;}
 .dec-subtitle{font-size:9px;letter-spacing:0.25em;color:var(--muted);margin-bottom:20px;font-family:var(--cinzel);}
@@ -290,30 +303,30 @@ body::before{content:'';position:fixed;inset:0;
 <!-- SNAKE MASCOT -->
 <div id="snake-mascot" onclick="snakeSpeak()">
 <svg width="110" height="130" viewBox="0 0 110 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <ellipse cx="55" cy="108" rx="32" ry="14" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1.5"/>
-  <ellipse cx="55" cy="100" rx="24" ry="10" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1"/>
-  <rect x="44" y="60" width="22" height="40" rx="11" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1.5"/>
-  <ellipse cx="55" cy="58" rx="36" ry="20" fill="#0D2A0D" stroke="#2ECC71" stroke-width="2"/>
-  <ellipse cx="55" cy="58" rx="22" ry="13" fill="#143A14" stroke="#C8A951" stroke-width="1"/>
-  <ellipse cx="55" cy="44" rx="18" ry="16" fill="#1A4A1A" stroke="#2ECC71" stroke-width="2"/>
-  <rect x="35" y="36" width="16" height="11" rx="5" fill="#0A0A0A" stroke="#C8A951" stroke-width="2"/>
-  <rect x="59" y="36" width="16" height="11" rx="5" fill="#0A0A0A" stroke="#C8A951" stroke-width="2"/>
-  <line x1="51" y1="41" x2="59" y2="41" stroke="#C8A951" stroke-width="1.5"/>
-  <circle cx="43" cy="41" r="3.5" fill="#C8A951"/>
-  <circle cx="67" cy="41" r="3.5" fill="#C8A951"/>
-  <circle cx="44" cy="40" r="1.2" fill="#040408"/>
-  <circle cx="68" cy="40" r="1.2" fill="#040408"/>
-  <path d="M50 56 L55 62 L60 56" stroke="#CC2222" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <path d="M55 62 L52 66" stroke="#CC2222" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M55 62 L58 66" stroke="#CC2222" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M73 38 Q88 28 90 18 Q88 10 82 14" stroke="#C8A951" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <path d="M73 42 Q90 36 94 24 Q93 14 86 18" stroke="#8B6914" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M73 46 Q89 44 91 34" stroke="#C8A951" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <ellipse cx="30" cy="72" rx="10" ry="7" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1.2" transform="rotate(-20 30 72)"/>
-  <ellipse cx="80" cy="72" rx="10" ry="7" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1.2" transform="rotate(20 80 72)"/>
-  <rect x="19" y="76" width="12" height="9" rx="2" fill="#C8A951" stroke="#7A6330" stroke-width="1"/>
-  <line x1="25" y1="76" x2="25" y2="73" stroke="#C8A951" stroke-width="1.5"/>
-  <text x="55" y="60" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="7" fill="#C8A951" letter-spacing="1">S.N.A.K.E.</text>
+  <ellipse cx="55" cy="108" rx="32" ry="14" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1.5"/>
+  <ellipse cx="55" cy="100" rx="24" ry="10" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1"/>
+  <rect x="44" y="60" width="22" height="40" rx="11" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1.5"/>
+  <ellipse cx="55" cy="58" rx="36" ry="20" fill="#0D2A0D" stroke="#2ECC71" stroke-width="2"/>
+  <ellipse cx="55" cy="58" rx="22" ry="13" fill="#143A14" stroke="#C8A951" stroke-width="1"/>
+  <ellipse cx="55" cy="44" rx="18" ry="16" fill="#1A4A1A" stroke="#2ECC71" stroke-width="2"/>
+  <rect x="35" y="36" width="16" height="11" rx="5" fill="#0A0A0A" stroke="#C8A951" stroke-width="2"/>
+  <rect x="59" y="36" width="16" height="11" rx="5" fill="#0A0A0A" stroke="#C8A951" stroke-width="2"/>
+  <line x1="51" y1="41" x2="59" y2="41" stroke="#C8A951" stroke-width="1.5"/>
+  <circle cx="43" cy="41" r="3.5" fill="#C8A951"/>
+  <circle cx="67" cy="41" r="3.5" fill="#C8A951"/>
+  <circle cx="44" cy="40" r="1.2" fill="#040408"/>
+  <circle cx="68" cy="40" r="1.2" fill="#040408"/>
+  <path d="M50 56 L55 62 L60 56" stroke="#CC2222" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M55 62 L52 66" stroke="#CC2222" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M55 62 L58 66" stroke="#CC2222" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M73 38 Q88 28 90 18 Q88 10 82 14" stroke="#C8A951" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M73 42 Q90 36 94 24 Q93 14 86 18" stroke="#8B6914" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M73 46 Q89 44 91 34" stroke="#C8A951" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <ellipse cx="30" cy="72" rx="10" ry="7" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1.2" transform="rotate(-20 30 72)"/>
+  <ellipse cx="80" cy="72" rx="10" ry="7" fill="#1A3A1A" stroke="#2ECC71" stroke-width="1.2" transform="rotate(20 80 72)"/>
+  <rect x="19" y="76" width="12" height="9" rx="2" fill="#C8A951" stroke="#7A6330" stroke-width="1"/>
+  <line x1="25" y1="76" x2="25" y2="73" stroke="#C8A951" stroke-width="1.5"/>
+  <text x="55" y="60" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="7" fill="#C8A951" letter-spacing="1">S.N.A.K.E.</text>
 </svg>
 </div>
 <div id="snake-tip"><span id="snake-tip-text"></span></div>
@@ -322,60 +335,60 @@ body::before{content:'';position:fixed;inset:0;
 
 <!-- ══════ SIDEBAR ══════ -->
 <aside class="sidebar">
-  <div class="sidebar-head">
-    <div class="logo">SYNTHEXIT</div>
-    <div class="logo-name">Dominique Clayton Stone</div>
-    <div class="trademark">™ DCSÍA, LC · Stone Dynasty</div>
-    <div class="status-row"><div class="dot"></div><span class="status-text">PIPELINE ACTIVE</span></div>
-  </div>
+  <div class="sidebar-head">
+    <div class="logo">SYNTHEXIT</div>
+    <div class="logo-name">Dominique Clayton Stone</div>
+    <div class="trademark">™ DCSÍA, LC · Stone Dynasty</div>
+    <div class="status-row"><div class="dot"></div><span class="status-text">PIPELINE ACTIVE</span></div>
+  </div>
 
-  <div class="social-row">
-    <a href="https://www.instagram.com/publicminister" target="_blank" class="social-btn ig">📸 IG</a>
-    <a href="https://www.linkedin.com/in/clayton-buffino" target="_blank" class="social-btn li">💼 LinkedIn</a>
-    <a href="https://lupuslyfe.gumroad.com" target="_blank" class="social-btn" style="color:var(--gold-dim);">🌐 Store</a>
-  </div>
+  <div class="social-row">
+    <a href="https://www.instagram.com/publicminister" target="_blank" class="social-btn ig">📸 IG</a>
+    <a href="https://www.linkedin.com/in/clayton-buffino" target="_blank" class="social-btn li">💼 LinkedIn</a>
+    <a href="https://lupuslyfe.gumroad.com" target="_blank" class="social-btn" style="color:var(--gold-dim);">🌐 Store</a>
+  </div>
 
-  <nav class="nav-section">
-    <div class="nav-label">Main</div>
-    <button class="nav-item active" onclick="showPage('home',this)">⬡ Home · About</button>
-    <button class="nav-item" onclick="showPage('dashboard',this)">⚔ War Room Dashboard</button>
-    <button class="nav-item" onclick="showPage('founders',this)">📜 Founders · Law Origins</button>
-    <button class="nav-item" onclick="showPage('setup',this)">⚙ Pipeline Setup</button>
-  </nav>
+  <nav class="nav-section">
+    <div class="nav-label">Main</div>
+    <button class="nav-item active" onclick="showPage('home',this)">⬡ Home · About</button>
+    <button class="nav-item" onclick="showPage('dashboard',this)">⚔ War Room Dashboard</button>
+    <button class="nav-item" onclick="showPage('founders',this)">📜 Founders · Law Origins</button>
+    <button class="nav-item" onclick="showPage('setup',this)">⚙ Pipeline Setup</button>
+  </nav>
 
-  <nav class="nav-section">
-    <div class="nav-label">Case Files</div>
-    <button class="nav-item" onclick="showPage('owi',this)">
-      <span><div>OWI · Implied Consent</div><div class="case-sub">Wyandotte · June 10</div></span>
-      <span class="pip" style="background:#CC2222;box-shadow:0 0 5px #CC2222;"></span>
-    </button>
-    <button class="nav-item" onclick="showPage('vop',this)">
-      <span><div>VOP · 24-0773CTA</div><div class="case-sub">Judge Mullins · June 16</div></span>
-      <span class="pip" style="background:#CC2222;box-shadow:0 0 5px #CC2222;"></span>
-    </button>
-    <button class="nav-item" onclick="showPage('disorderly',this)">
-      <span><div>Disorderly · T645937</div><div class="case-sub">33rd District</div></span>
-      <span class="pip" style="background:#F59E0B;box-shadow:0 0 4px #F59E0B;"></span>
-    </button>
-    <button class="nav-item" onclick="showPage('nlrb',this)">
-      <span><div>NLRB · 07-CB-381443</div><div class="case-sub">Federal Labor</div></span>
-      <span class="pip" style="background:#F59E0B;box-shadow:0 0 4px #F59E0B;"></span>
-    </button>
-    <button class="nav-item" onclick="showPage('mdcr',this)">
-      <span><div>MDCR / EEOC</div><div class="case-sub">663943 · 483-2024-03891</div></span>
-      <span class="pip" style="background:#F59E0B;box-shadow:0 0 4px #F59E0B;"></span>
-    </button>
-    <button class="nav-item" onclick="showPage('merc',this)">
-      <span><div>MERC · 0164 / 0165</div><div class="case-sub">Teamsters · Ford · Hearn</div></span>
-      <span class="pip" style="background:#8B5CF6;box-shadow:0 0 4px #8B5CF6;"></span>
-    </button>
-  </nav>
+  <nav class="nav-section">
+    <div class="nav-label">Case Files</div>
+    <button class="nav-item" onclick="showPage('owi',this)">
+      <span><div>OWI · Implied Consent</div><div class="case-sub">Wyandotte · June 10</div></span>
+      <span class="pip" style="background:#CC2222;box-shadow:0 0 5px #CC2222;"></span>
+    </button>
+    <button class="nav-item" onclick="showPage('vop',this)">
+      <span><div>VOP · 24-0773CTA</div><div class="case-sub">Judge Mullins · June 16</div></span>
+      <span class="pip" style="background:#CC2222;box-shadow:0 0 5px #CC2222;"></span>
+    </button>
+    <button class="nav-item" onclick="showPage('disorderly',this)">
+      <span><div>Disorderly · T645937</div><div class="case-sub">33rd District</div></span>
+      <span class="pip" style="background:#F59E0B;box-shadow:0 0 4px #F59E0B;"></span>
+    </button>
+    <button class="nav-item" onclick="showPage('nlrb',this)">
+      <span><div>NLRB · 07-CB-381443</div><div class="case-sub">Federal Labor</div></span>
+      <span class="pip" style="background:#F59E0B;box-shadow:0 0 4px #F59E0B;"></span>
+    </button>
+    <button class="nav-item" onclick="showPage('mdcr',this)">
+      <span><div>MDCR / EEOC</div><div class="case-sub">663943 · 483-2024-03891</div></span>
+      <span class="pip" style="background:#F59E0B;box-shadow:0 0 4px #F59E0B;"></span>
+    </button>
+    <button class="nav-item" onclick="showPage('merc',this)">
+      <span><div>MERC · 0164 / 0165</div><div class="case-sub">Teamsters · Ford · Hearn</div></span>
+      <span class="pip" style="background:#8B5CF6;box-shadow:0 0 4px #8B5CF6;"></span>
+    </button>
+  </nav>
 
-  <div class="sidebar-footer">
-    <div class="doctrine-label">Master-Self Doctrine</div>
-    <div class="doctrine-text">"Discipline cures chaos.<br>Master-Self is a system,<br>not a mood."</div>
-    <div style="margin-top:10px;font-size:8px;color:var(--muted);letter-spacing:0.1em;">© DCSÍA, LC · Stone Dynasty™<br>All rights reserved.</div>
-  </div>
+  <div class="sidebar-footer">
+    <div class="doctrine-label">Master-Self Doctrine</div>
+    <div class="doctrine-text">"Discipline cures chaos.<br>Master-Self is a system,<br>not a mood."</div>
+    <div style="margin-top:10px;font-size:8px;color:var(--muted);letter-spacing:0.1em;">© DCSÍA, LC · Stone Dynasty™<br>All rights reserved.</div>
+  </div>
 </aside>
 
 <!-- ══════ MAIN ══════ -->
@@ -383,321 +396,321 @@ body::before{content:'';position:fixed;inset:0;
 
 <!-- ══ HOME / ABOUT ══ -->
 <div id="page-home" class="fade-in">
-  <div class="command-bar">
-    <div class="cb-title">DOMINIQUE CLAYTON STONE</div>
-    <span class="cb-badge badge-gold">CERTIFIED PARALEGAL</span>
-    <span class="cb-badge badge-blue">PRO SE ADVOCATE</span>
-  </div>
+  <div class="command-bar">
+    <div class="cb-title">DOMINIQUE CLAYTON STONE</div>
+    <span class="cb-badge badge-gold">CERTIFIED PARALEGAL</span>
+    <span class="cb-badge badge-blue">PRO SE ADVOCATE</span>
+  </div>
 
-  <div class="hero">
-    <div class="hero-name">Dominique Clayton Stone</div>
-    <div class="hero-title">Certified Paralegal · Legal Strategist · Empire Architect · Master-Self</div>
-    <div class="hero-mission">
-      "I am a certified paralegal, appellate practitioner, and multi-agency administrative advocate operating across criminal, civil rights, and federal labor forums simultaneously. I built this system — SYNTHEXIT — as an AI-powered legal intelligence pipeline to process, analyze, and respond to legal correspondence at the speed of strategy. This is not a tool. This is a doctrine. Every motion filed, every agency charged, every hearing attended is an act of discipline. The system does not sleep. Neither do I."
-    </div>
-  </div>
+  <div class="hero">
+    <div class="hero-name">Dominique Clayton Stone</div>
+    <div class="hero-title">Certified Paralegal · Legal Strategist · Empire Architect · Master-Self</div>
+    <div class="hero-mission">
+      "I am a certified paralegal, appellate practitioner, and multi-agency administrative advocate operating across criminal, civil rights, and federal labor forums simultaneously. I built this system — SYNTHEXIT — as an AI-powered legal intelligence pipeline to process, analyze, and respond to legal correspondence at the speed of strategy. This is not a tool. This is a doctrine. Every motion filed, every agency charged, every hearing attended is an act of discipline. The system does not sleep. Neither do I."
+    </div>
+  </div>
 
-  <div class="section">
-    <div class="section-head"><div class="section-title">Legal Accolades & Credentials</div></div>
-    <div class="accolades-grid">
-      <div class="accolade-cell">
-        <div class="accolade-year">2013</div>
-        <div class="accolade-title">Certified Paralegal With Distinction</div>
-        <div class="accolade-desc">Blackstone Career Institute — Graduated with distinction. Foundation of a decade-plus legal practice.</div>
-      </div>
-      <div class="accolade-cell">
-        <div class="accolade-year">5–8 Yrs</div>
-        <div class="accolade-title">Criminal Appellate Practice</div>
-        <div class="accolade-desc">Filings before Michigan Court of Appeals, Michigan Supreme Court, and U.S. Court of Appeals — 6th Circuit.</div>
-      </div>
-      <div class="accolade-cell">
-        <div class="accolade-year">12+ Yrs</div>
-        <div class="accolade-title">Administrative Law Practice</div>
-        <div class="accolade-desc">MDCR, EEOC, MERC, NLRB, and UIA proceedings. Multi-agency concurrent advocacy at the highest level.</div>
-      </div>
-      <div class="accolade-cell">
-        <div class="accolade-year">Active</div>
-        <div class="accolade-title">Pro Se Multi-Jurisdiction Advocate</div>
-        <div class="accolade-desc">Simultaneous active matters in criminal, administrative, and civil rights forums across state and federal systems.</div>
-      </div>
-      <div class="accolade-cell">
-        <div class="accolade-year">2025</div>
-        <div class="accolade-title">SYNTHEXIT Pipeline — Architect</div>
-        <div class="accolade-desc">Built AI-powered legal intelligence pipeline on Make.com integrating Anthropic Claude API, GitHub, OneDrive, and Outlook.</div>
-      </div>
-      <div class="accolade-cell">
-        <div class="accolade-year">CEO</div>
-        <div class="accolade-title">DCSÍA, LC</div>
-        <div class="accolade-desc">Dominique Clayton Stone Investment Association, LC — legal consulting, advocacy, and empire infrastructure.</div>
-      </div>
-    </div>
-  </div>
+  <div class="section">
+    <div class="section-head"><div class="section-title">Legal Accolades & Credentials</div></div>
+    <div class="accolades-grid">
+      <div class="accolade-cell">
+        <div class="accolade-year">2013</div>
+        <div class="accolade-title">Certified Paralegal With Distinction</div>
+        <div class="accolade-desc">Blackstone Career Institute — Graduated with distinction. Foundation of a decade-plus legal practice.</div>
+      </div>
+      <div class="accolade-cell">
+        <div class="accolade-year">5–8 Yrs</div>
+        <div class="accolade-title">Criminal Appellate Practice</div>
+        <div class="accolade-desc">Filings before Michigan Court of Appeals, Michigan Supreme Court, and U.S. Court of Appeals — 6th Circuit.</div>
+      </div>
+      <div class="accolade-cell">
+        <div class="accolade-year">12+ Yrs</div>
+        <div class="accolade-title">Administrative Law Practice</div>
+        <div class="accolade-desc">MDCR, EEOC, MERC, NLRB, and UIA proceedings. Multi-agency concurrent advocacy at the highest level.</div>
+      </div>
+      <div class="accolade-cell">
+        <div class="accolade-year">Active</div>
+        <div class="accolade-title">Pro Se Multi-Jurisdiction Advocate</div>
+        <div class="accolade-desc">Simultaneous active matters in criminal, administrative, and civil rights forums across state and federal systems.</div>
+      </div>
+      <div class="accolade-cell">
+        <div class="accolade-year">2025</div>
+        <div class="accolade-title">SYNTHEXIT Pipeline — Architect</div>
+        <div class="accolade-desc">Built AI-powered legal intelligence pipeline on Make.com integrating Anthropic Claude API, GitHub, OneDrive, and Outlook.</div>
+      </div>
+      <div class="accolade-cell">
+        <div class="accolade-year">CEO</div>
+        <div class="accolade-title">DCSÍA, LC</div>
+        <div class="accolade-desc">Dominique Clayton Stone Investment Association, LC — legal consulting, advocacy, and empire infrastructure.</div>
+      </div>
+    </div>
+  </div>
 
-  <div class="section">
-    <div class="section-head"><div class="section-title">Mission Statement</div></div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--gold);padding:24px 28px;position:relative;z-index:1;">
-      <div style="font-family:var(--cinzel);font-size:11px;color:var(--gold);letter-spacing:0.2em;margin-bottom:12px;">CERTIFIED MISSION ADVOCATE STATEMENT</div>
-      <div style="font-family:var(--serif);font-size:13px;color:var(--text);line-height:2.1;font-style:italic;">
-        I advocate not because the system invited me — but because the Constitution demands it. Armed with a paralegal certification earned with distinction, over a decade of appellate and administrative practice, and the strategic intelligence of SYNTHEXIT, I enter every forum prepared to litigate, negotiate, and prevail. My practice spans criminal defense, federal labor law, civil rights enforcement, and administrative proceedings. I direct attorneys. I build records. I file motions. I identify retaliation. I connect patterns. I am not a victim navigating the legal system — I am a practitioner operating within it on behalf of myself, my family, and the Stone Dynasty. Every case filed is a stone laid. Every motion drafted is discipline manifested. The empire is built through the law.
-      </div>
-      <div style="margin-top:16px;font-size:9px;color:var(--muted);letter-spacing:0.2em;font-family:var(--cinzel);">— DOMINIQUE CLAYTON STONE · DCSÍA, LC · STONE DYNASTY™</div>
-    </div>
-  </div>
+  <div class="section">
+    <div class="section-head"><div class="section-title">Mission Statement</div></div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--gold);padding:24px 28px;position:relative;z-index:1;">
+      <div style="font-family:var(--cinzel);font-size:11px;color:var(--gold);letter-spacing:0.2em;margin-bottom:12px;">CERTIFIED MISSION ADVOCATE STATEMENT</div>
+      <div style="font-family:var(--serif);font-size:13px;color:var(--text);line-height:2.1;font-style:italic;">
+        I advocate not because the system invited me — but because the Constitution demands it. Armed with a paralegal certification earned with distinction, over a decade of appellate and administrative practice, and the strategic intelligence of SYNTHEXIT, I enter every forum prepared to litigate, negotiate, and prevail. My practice spans criminal defense, federal labor law, civil rights enforcement, and administrative proceedings. I direct attorneys. I build records. I file motions. I identify retaliation. I connect patterns. I am not a victim navigating the legal system — I am a practitioner operating within it on behalf of myself, my family, and the Stone Dynasty. Every case filed is a stone laid. Every motion drafted is discipline manifested. The empire is built through the law.
+      </div>
+      <div style="margin-top:16px;font-size:9px;color:var(--muted);letter-spacing:0.2em;font-family:var(--cinzel);">— DOMINIQUE CLAYTON STONE · DCSÍA, LC · STONE DYNASTY™</div>
+    </div>
+  </div>
 
-  <div class="section">
-    <div class="section-head"><div class="section-title">Active Case Files — Quick Access</div></div>
-    <div class="stash-grid">
-      <button class="stash-btn critical" onclick="showPage('owi',document.querySelector('.nav-item:nth-child(1)'))">
-        <div class="stash-case">OWI · Implied Consent</div>
-        <div class="stash-forum">Wyandotte Municipal Court</div>
-        <div class="stash-number">IR: 2026-00005348</div>
-        <span class="stash-status active">CRITICAL · JUNE 10</span>
-        <span class="stash-arrow">→</span>
-      </button>
-      <button class="stash-btn critical" onclick="showPage('vop',null)">
-        <div class="stash-case">VOP · 24-0773CTA</div>
-        <div class="stash-forum">Judge Mullins</div>
-        <div class="stash-number">Atty Karman</div>
-        <span class="stash-status active">CRITICAL · JUNE 16</span>
-        <span class="stash-arrow">→</span>
-      </button>
-      <button class="stash-btn high" onclick="showPage('disorderly',null)">
-        <div class="stash-case">Disorderly Conduct</div>
-        <div class="stash-forum">33rd District Court</div>
-        <div class="stash-number">Citation T645937 · Case 2026-02651</div>
-        <span class="stash-status pending">HIGH PRIORITY</span>
-        <span class="stash-arrow">→</span>
-      </button>
-      <button class="stash-btn high" onclick="showPage('nlrb',null)">
-        <div class="stash-case">NLRB · 07-CB-381443</div>
-        <div class="stash-forum">National Labor Relations Board</div>
-        <div class="stash-number">Teamsters Local 299 · Ford · Hearn</div>
-        <span class="stash-status pending">HIGH PRIORITY</span>
-        <span class="stash-arrow">→</span>
-      </button>
-      <button class="stash-btn high" onclick="showPage('mdcr',null)">
-        <div class="stash-case">MDCR / EEOC</div>
-        <div class="stash-forum">Michigan Dept of Civil Rights · EEOC</div>
-        <div class="stash-number">663943 · 483-2024-03891</div>
-        <span class="stash-status pending">HIGH PRIORITY</span>
-        <span class="stash-arrow">→</span>
-      </button>
-      <button class="stash-btn monitor" onclick="showPage('merc',null)">
-        <div class="stash-case">MERC · 26-A-0164 / 0165</div>
-        <div class="stash-forum">Michigan Employment Relations Commission</div>
-        <div class="stash-number">vs. Teamsters · Hearn · Ford Motor Co.</div>
-        <span class="stash-status monitor">MONITOR</span>
-        <span class="stash-arrow">→</span>
-      </button>
-    </div>
-  </div>
+  <div class="section">
+    <div class="section-head"><div class="section-title">Active Case Files — Quick Access</div></div>
+    <div class="stash-grid">
+      <button class="stash-btn critical" onclick="showPage('owi',document.querySelector('.nav-item:nth-child(1)'))">
+        <div class="stash-case">OWI · Implied Consent</div>
+        <div class="stash-forum">Wyandotte Municipal Court</div>
+        <div class="stash-number">IR: 2026-00005348</div>
+        <span class="stash-status active">CRITICAL · JUNE 10</span>
+        <span class="stash-arrow">→</span>
+      </button>
+      <button class="stash-btn critical" onclick="showPage('vop',null)">
+        <div class="stash-case">VOP · 24-0773CTA</div>
+        <div class="stash-forum">Judge Mullins</div>
+        <div class="stash-number">Atty Karman</div>
+        <span class="stash-status active">CRITICAL · JUNE 16</span>
+        <span class="stash-arrow">→</span>
+      </button>
+      <button class="stash-btn high" onclick="showPage('disorderly',null)">
+        <div class="stash-case">Disorderly Conduct</div>
+        <div class="stash-forum">33rd District Court</div>
+        <div class="stash-number">Citation T645937 · Case 2026-02651</div>
+        <span class="stash-status pending">HIGH PRIORITY</span>
+        <span class="stash-arrow">→</span>
+      </button>
+      <button class="stash-btn high" onclick="showPage('nlrb',null)">
+        <div class="stash-case">NLRB · 07-CB-381443</div>
+        <div class="stash-forum">National Labor Relations Board</div>
+        <div class="stash-number">Teamsters Local 299 · Ford · Hearn</div>
+        <span class="stash-status pending">HIGH PRIORITY</span>
+        <span class="stash-arrow">→</span>
+      </button>
+      <button class="stash-btn high" onclick="showPage('mdcr',null)">
+        <div class="stash-case">MDCR / EEOC</div>
+        <div class="stash-forum">Michigan Dept of Civil Rights · EEOC</div>
+        <div class="stash-number">663943 · 483-2024-03891</div>
+        <span class="stash-status pending">HIGH PRIORITY</span>
+        <span class="stash-arrow">→</span>
+      </button>
+      <button class="stash-btn monitor" onclick="showPage('merc',null)">
+        <div class="stash-case">MERC · 26-A-0164 / 0165</div>
+        <div class="stash-forum">Michigan Employment Relations Commission</div>
+        <div class="stash-number">vs. Teamsters · Hearn · Ford Motor Co.</div>
+        <span class="stash-status monitor">MONITOR</span>
+        <span class="stash-arrow">→</span>
+      </button>
+    </div>
+  </div>
 </div>
 
 <!-- ══ DASHBOARD ══ -->
 <div id="page-dashboard" style="display:none;" class="fade-in">
-  <div class="command-bar"><div class="cb-title">WAR ROOM DASHBOARD</div><span class="cb-badge badge-red">2 CRITICAL</span><span class="cb-badge badge-gold">3 HIGH</span></div>
-  <div class="ret-banner">
-    <div class="ret-title">⚠ RETALIATION PATTERN — STANDING ALERT</div>
-    <div class="ret-text">Documented sequence: March 17–21, 2026. Citation delivery → formal complaint filing → Wyandotte traffic stop (officer admitted running BUFINO plate prior to stop). Connective tissue across ALL active matters.</div>
-  </div>
-  <div class="dash-grid">
-    <div class="dash-card"><div class="dash-label">Active Matters</div><div class="dash-stat">6</div><div class="dash-sub">3 Criminal · 3 Administrative</div></div>
-    <div class="dash-card"><div class="dash-label">Next Critical Deadline</div><div class="dash-stat" id="next-cd" style="color:var(--red);">—</div><div class="dash-sub">OWI Hearing · Wyandotte · June 10</div></div>
-    <div class="dash-card"><div class="dash-label">GitHub Issues (Live)</div><div class="dash-stat" id="gh-count">—</div><div class="dash-sub">dassociation22-code/synthexit.github.io</div></div>
-    <div class="dash-card"><div class="dash-label">Sheets Records</div><div class="dash-stat" id="sheets-count">—</div><div class="dash-sub">Connect in Pipeline Setup</div></div>
-  </div>
-  <div class="section">
-    <div class="section-head"><div class="section-title">SYNTHEXIT Intake Feed</div><div id="gh-sync" class="sync-bar" style="margin:0;padding:4px 12px;border:none;background:none;"><div class="sync-dot"></div> Connecting...</div></div>
-    <div id="gh-issues-container"><div class="gh-issue"><div class="gh-num">#—</div><div><div class="gh-title" style="color:var(--muted);">Awaiting GitHub connection...</div><div class="gh-meta">Configure token in Pipeline Setup</div></div></div></div>
-  </div>
+  <div class="command-bar"><div class="cb-title">WAR ROOM DASHBOARD</div><span class="cb-badge badge-red">2 CRITICAL</span><span class="cb-badge badge-gold">3 HIGH</span></div>
+  <div class="ret-banner">
+    <div class="ret-title">⚠ RETALIATION PATTERN — STANDING ALERT</div>
+    <div class="ret-text">Documented sequence: March 17–21, 2026. Citation delivery → formal complaint filing → Wyandotte traffic stop (officer admitted running BUFINO plate prior to stop). Connective tissue across ALL active matters.</div>
+  </div>
+  <div class="dash-grid">
+    <div class="dash-card"><div class="dash-label">Active Matters</div><div class="dash-stat">6</div><div class="dash-sub">3 Criminal · 3 Administrative</div></div>
+    <div class="dash-card"><div class="dash-label">Next Critical Deadline</div><div class="dash-stat" id="next-cd" style="color:var(--red);">—</div><div class="dash-sub">OWI Hearing · Wyandotte · June 10</div></div>
+    <div class="dash-card"><div class="dash-label">GitHub Issues (Live)</div><div class="dash-stat" id="gh-count">—</div><div class="dash-sub">dassociation22-code/synthexit.github.io</div></div>
+    <div class="dash-card"><div class="dash-label">Sheets Records</div><div class="dash-stat" id="sheets-count">—</div><div class="dash-sub">Connect in Pipeline Setup</div></div>
+  </div>
+  <div class="section">
+    <div class="section-head"><div class="section-title">SYNTHEXIT Intake Feed</div><div id="gh-sync" class="sync-bar" style="margin:0;padding:4px 12px;border:none;background:none;"><div class="sync-dot"></div> Connecting...</div></div>
+    <div id="gh-issues-container"><div class="gh-issue"><div class="gh-num">#—</div><div><div class="gh-title" style="color:var(--muted);">Awaiting GitHub connection...</div><div class="gh-meta">Configure token in Pipeline Setup</div></div></div></div>
+  </div>
 </div>
 
 <!-- ══ FOUNDERS PAGE ══ -->
 <div id="page-founders" style="display:none;" class="fade-in">
-  <div class="command-bar">
-    <div class="cb-title">FOUNDERS · LAW ORIGINS</div>
-    <span class="cb-badge badge-blue">COMMON LAW → CONSTITUTIONAL</span>
-  </div>
+  <div class="command-bar">
+    <div class="cb-title">FOUNDERS · LAW ORIGINS</div>
+    <span class="cb-badge badge-blue">COMMON LAW → CONSTITUTIONAL</span>
+  </div>
 
-  <div class="founders-intro">
-    <div class="founders-quote">"The tree of liberty must be refreshed from time to time with the blood of patriots and tyrants. It is its natural manure."</div>
-    <div class="founders-attr">— THOMAS JEFFERSON, 1787 · ADVOCATE FOR THE GOVERNED</div>
-    <div style="font-size:11px;color:var(--text);margin-top:14px;line-height:1.9;">This page is your living legal foundation — the intellectual bedrock on which every motion, every filing, and every act of self-advocacy stands. The framers did not build this system to exclude the people. They built it as a tool of the people. Study it. Master it. Deploy it.</div>
-  </div>
+  <div class="founders-intro">
+    <div class="founders-quote">"The tree of liberty must be refreshed from time to time with the blood of patriots and tyrants. It is its natural manure."</div>
+    <div class="founders-attr">— THOMAS JEFFERSON, 1787 · ADVOCATE FOR THE GOVERNED</div>
+    <div style="font-size:11px;color:var(--text);margin-top:14px;line-height:1.9;">This page is your living legal foundation — the intellectual bedrock on which every motion, every filing, and every act of self-advocacy stands. The framers did not build this system to exclude the people. They built it as a tool of the people. Study it. Master it. Deploy it.</div>
+  </div>
 
-  <div class="law-timeline">
+  <div class="law-timeline">
 
-    <div class="law-node">
-      <div class="law-era">Ancient Origins · 1000 AD Onward</div>
-      <div class="law-name">Common Law</div>
-      <div class="law-synopsis">Common law is judge-made law — the accumulated body of legal decisions built through centuries of English court rulings. It operates on precedent: when a court decides a case, that decision becomes binding on future cases involving similar facts. This is the doctrine of <em>stare decisis</em> — "to stand by things decided." Common law traveled to the American colonies and became the foundational legal framework of every U.S. state except Louisiana. It is the reason prior court decisions matter in your cases — and why researching case law is as important as reading statutes.</div>
-      <div class="law-advocacy">As a pro se advocate, common law gives you the power of precedent. Every ruling in your favor builds the record. Every favorable prior case is a weapon. Research, cite, and deploy it.</div>
-    </div>
+    <div class="law-node">
+      <div class="law-era">Ancient Origins · 1000 AD Onward</div>
+      <div class="law-name">Common Law</div>
+      <div class="law-synopsis">Common law is judge-made law — the accumulated body of legal decisions built through centuries of English court rulings. It operates on precedent: when a court decides a case, that decision becomes binding on future cases involving similar facts. This is the doctrine of <em>stare decisis</em> — "to stand by things decided." Common law traveled to the American colonies and became the foundational legal framework of every U.S. state except Louisiana. It is the reason prior court decisions matter in your cases — and why researching case law is as important as reading statutes.</div>
+      <div class="law-advocacy">As a pro se advocate, common law gives you the power of precedent. Every ruling in your favor builds the record. Every favorable prior case is a weapon. Research, cite, and deploy it.</div>
+    </div>
 
-    <div class="law-node">
-      <div class="law-era">Roman & English Foundations · 13th Century</div>
-      <div class="law-name">Contract Law</div>
-      <div class="law-synopsis">Contract law governs voluntary agreements between parties. The essentials: offer, acceptance, consideration, mutual assent, and capacity. A contract binds parties to their word — and when one party breaches, the other has legal remedies including damages and specific performance. In labor and employment contexts, collective bargaining agreements ARE contracts. The duty of fair representation owed by Teamsters Local 299 arises precisely because a contract — the CBA — governs your employment relationship. When the union failed to enforce that contract on your behalf, they breached a legal duty.</div>
-      <div class="law-advocacy">Your NLRB and MERC matters are rooted here. The CBA is the contract. The union's failure to enforce it is the breach. Know this doctrine cold.</div>
-    </div>
+    <div class="law-node">
+      <div class="law-era">Roman & English Foundations · 13th Century</div>
+      <div class="law-name">Contract Law</div>
+      <div class="law-synopsis">Contract law governs voluntary agreements between parties. The essentials: offer, acceptance, consideration, mutual assent, and capacity. A contract binds parties to their word — and when one party breaches, the other has legal remedies including damages and specific performance. In labor and employment contexts, collective bargaining agreements ARE contracts. The duty of fair representation owed by Teamsters Local 299 arises precisely because a contract — the CBA — governs your employment relationship. When the union failed to enforce that contract on your behalf, they breached a legal duty.</div>
+      <div class="law-advocacy">Your NLRB and MERC matters are rooted here. The CBA is the contract. The union's failure to enforce it is the breach. Know this doctrine cold.</div>
+    </div>
 
-    <div class="law-node">
-      <div class="law-era">Lex Mercatoria · Medieval Europe</div>
-      <div class="law-name">Commercial Law</div>
-      <div class="law-synopsis">Commercial law — the law of merchants — governs trade, business transactions, and economic activity. In the American context it is codified largely in the Uniform Commercial Code (UCC). It also encompasses employment law, business entity formation, and investment regulations. Your investment association, Stone Empire Wellness, and LupusLyfe brand all operate within commercial law's framework. Understanding commercial law means understanding how to structure entities to limit liability, protect intellectual property, and conduct business with legal standing.</div>
-      <div class="law-advocacy">Stone Dynasty™ is a commercial enterprise. Trademark, LLC structure, contracts with vendors and clients — all commercial law. Build the empire with the same precision you bring to the courtroom.</div>
-    </div>
+    <div class="law-node">
+      <div class="law-era">Lex Mercatoria · Medieval Europe</div>
+      <div class="law-name">Commercial Law</div>
+      <div class="law-synopsis">Commercial law — the law of merchants — governs trade, business transactions, and economic activity. In the American context it is codified largely in the Uniform Commercial Code (UCC). It also encompasses employment law, business entity formation, and investment regulations. Your investment association, Stone Empire Wellness, and LupusLyfe brand all operate within commercial law's framework. Understanding commercial law means understanding how to structure entities to limit liability, protect intellectual property, and conduct business with legal standing.</div>
+      <div class="law-advocacy">Stone Dynasty™ is a commercial enterprise. Trademark, LLC structure, contracts with vendors and clients — all commercial law. Build the empire with the same precision you bring to the courtroom.</div>
+    </div>
 
-    <div class="law-node">
-      <div class="law-era">Magna Carta 1215 · U.S. Constitution 1787</div>
-      <div class="law-name">Constitutional Law</div>
-      <div class="law-synopsis">Constitutional law is the supreme law — the framework that defines the relationship between the government and the governed. The U.S. Constitution and its amendments establish rights that no statute can override. The Fourth Amendment protects against unreasonable searches and seizures — the legal basis for suppressing the Wyandotte stop. The First Amendment protects speech and petition — the basis for your agency filings. The Fourteenth Amendment guarantees equal protection and due process — the foundation of your civil rights claims. Every government action in your cases must pass constitutional scrutiny.</div>
-      <div class="law-advocacy">Your OWI suppression motion is a Fourth Amendment argument. Your civil rights matters are Fourteenth Amendment claims. Constitutional law is not abstract — it is your shield in every active case.</div>
-    </div>
+    <div class="law-node">
+      <div class="law-era">Magna Carta 1215 · U.S. Constitution 1787</div>
+      <div class="law-name">Constitutional Law</div>
+      <div class="law-synopsis">Constitutional law is the supreme law — the framework that defines the relationship between the government and the governed. The U.S. Constitution and its amendments establish rights that no statute can override. The Fourth Amendment protects against unreasonable searches and seizures — the legal basis for suppressing the Wyandotte stop. The First Amendment protects speech and petition — the basis for your agency filings. The Fourteenth Amendment guarantees equal protection and due process — the foundation of your civil rights claims. Every government action in your cases must pass constitutional scrutiny.</div>
+      <div class="law-advocacy">Your OWI suppression motion is a Fourth Amendment argument. Your civil rights matters are Fourteenth Amendment claims. Constitutional law is not abstract — it is your shield in every active case.</div>
+    </div>
 
-    <div class="law-node">
-      <div class="law-era">Parliamentary England · U.S. Congress · State Legislatures</div>
-      <div class="law-name">Statutory Law</div>
-      <div class="law-synopsis">Statutory law is law enacted by a legislative body — Congress, the Michigan Legislature, or any lawmaking body. Unlike common law (judge-made) or constitutional law (foundational), statutes are written rules passed through the legislative process. The NLRA (National Labor Relations Act), Title VII of the Civil Rights Act, the Elliott-Larsen Civil Rights Act, MCL 257.625 (OWI), MCL 750.167 (Disorderly Persons) — these are all statutes. Administrative agencies like the NLRB, EEOC, MDCR, and MERC exist because Congress and state legislatures created them through statute to enforce statutory rights.</div>
-      <div class="law-advocacy">Every agency you've filed with enforces a statute. Know the statute. Know the regulation. Know the deadline. The statute is the source of your rights — and the source of the violation.</div>
-    </div>
+    <div class="law-node">
+      <div class="law-era">Parliamentary England · U.S. Congress · State Legislatures</div>
+      <div class="law-name">Statutory Law</div>
+      <div class="law-synopsis">Statutory law is law enacted by a legislative body — Congress, the Michigan Legislature, or any lawmaking body. Unlike common law (judge-made) or constitutional law (foundational), statutes are written rules passed through the legislative process. The NLRA (National Labor Relations Act), Title VII of the Civil Rights Act, the Elliott-Larsen Civil Rights Act, MCL 257.625 (OWI), MCL 750.167 (Disorderly Persons) — these are all statutes. Administrative agencies like the NLRB, EEOC, MDCR, and MERC exist because Congress and state legislatures created them through statute to enforce statutory rights.</div>
+      <div class="law-advocacy">Every agency you've filed with enforces a statute. Know the statute. Know the regulation. Know the deadline. The statute is the source of your rights — and the source of the violation.</div>
+    </div>
 
-  </div>
+  </div>
 
-  <!-- DECLARATION OF INDEPENDENCE -->
-  <div class="declaration-block">
-    <div class="dec-title">THE DECLARATION OF INDEPENDENCE</div>
-    <div class="dec-subtitle">JULY 4, 1776 · IN CONGRESS · UNITED STATES OF AMERICA</div>
-    <div class="dec-text">
-      "We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness. — That to secure these rights, Governments are instituted among Men, deriving their just powers from the consent of the governed, — That whenever any Form of Government becomes destructive of these ends, it is the Right of the People to alter or to abolish it, and to institute new Government..."
-    </div>
-    <div style="font-size:11px;color:var(--text);line-height:1.9;margin-bottom:20px;">
-      The Declaration is not law in the technical sense — it has no enforcement mechanism, no penalty provisions, no cause of action. But it is the philosophical foundation upon which every law in this nation rests. When you file an EEOC charge, a MERC petition, or a constitutional motion — you are invoking the principle that the governed have rights the government must respect. The framers wrote these words not as poetry — but as a legal argument. They were advocates. So are you.
-    </div>
-    <div style="font-family:var(--cinzel);font-size:11px;color:var(--gold);letter-spacing:0.2em;margin-bottom:16px;">THE FRAMERS — INSPIRATION FOR SELF-ADVOCACY</div>
-    <div class="framer-grid">
-      <div class="framer-cell">
-        <div class="framer-name">Thomas Jefferson</div>
-        <div class="framer-role">Primary Author · Declaration of Independence</div>
-        <div class="framer-contribution">Articulated the philosophy that government authority derives from the people — not the other way around. His belief that rights are self-evident and unalienable is the intellectual basis for every civil rights claim.</div>
-      </div>
-      <div class="framer-cell">
-        <div class="framer-name">James Madison</div>
-        <div class="framer-role">Father of the Constitution · Bill of Rights Author</div>
-        <div class="framer-contribution">Wrote the first ten amendments — the Bill of Rights. The Fourth and Fourteenth Amendments that anchor your OWI suppression and civil rights matters trace directly to his framework for limiting government power.</div>
-      </div>
-      <div class="framer-cell">
-        <div class="framer-name">Alexander Hamilton</div>
-        <div class="framer-role">Federalist Papers · First Treasury Secretary</div>
-        <div class="framer-contribution">Argued for a strong federal government capable of enforcing rights. The federal agencies — NLRB, EEOC — exist because Hamilton's vision of federal authority prevailed. He built the mechanism you now use to hold employers accountable.</div>
-      </div>
-      <div class="framer-cell">
-        <div class="framer-name">John Adams</div>
-        <div class="framer-role">Defense Attorney · Second President</div>
-        <div class="framer-contribution">Defended British soldiers after the Boston Massacre — unpopular but principled. He believed the rule of law must apply to everyone equally. His legacy is the right to a fair process — the due process foundation of every hearing you attend.</div>
-      </div>
-      <div class="framer-cell">
-        <div class="framer-name">Frederick Douglass</div>
-        <div class="framer-role">Abolitionist · Constitutional Advocate</div>
-        <div class="framer-contribution">Not a framer by convention — but the moral architect of what the Constitution must mean. He argued the Constitution, properly read, was an anti-slavery document. His legacy is the Thirteenth and Fourteenth Amendments. His method was advocacy. His weapon was law.</div>
-      </div>
-      <div class="framer-cell">
-        <div class="framer-name">Thurgood Marshall</div>
-        <div class="framer-role">NAACP Legal Defense Fund · Supreme Court Justice</div>
-        <div class="framer-contribution">Used the law to dismantle segregation — argued Brown v. Board of Education. Proved that the courtroom is a battlefield and the Constitution is the weapon. The direct ancestor of every civil rights filing you make.</div>
-      </div>
-    </div>
-    <div style="margin-top:20px;background:rgba(200,169,81,0.06);border:1px solid rgba(200,169,81,0.2);padding:16px 20px;">
-      <div style="font-family:var(--cinzel);font-size:10px;color:var(--gold);letter-spacing:0.2em;margin-bottom:8px;">STONE DYNASTY · JULY 4TH DECLARATION</div>
-      <div style="font-family:var(--serif);font-size:12px;color:var(--text);line-height:2;font-style:italic;">"The framers gave us the framework. Generations of advocates gave it teeth. Now it is our generation's turn to enforce it — not with petitions for permission, but with filings, with evidence, with strategy, and with the unshakeable belief that the law belongs to everyone it governs. This system — SYNTHEXIT — is built in that tradition. Happy Independence Day."</div>
-      <div style="font-size:9px;color:var(--muted);margin-top:8px;font-family:var(--cinzel);letter-spacing:0.15em;">— DOMINIQUE CLAYTON STONE · STONE DYNASTY™ · 2026</div>
-    </div>
-  </div>
+  <!-- DECLARATION OF INDEPENDENCE -->
+  <div class="declaration-block">
+    <div class="dec-title">THE DECLARATION OF INDEPENDENCE</div>
+    <div class="dec-subtitle">JULY 4, 1776 · IN CONGRESS · UNITED STATES OF AMERICA</div>
+    <div class="dec-text">
+      "We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness. — That to secure these rights, Governments are instituted among Men, deriving their just powers from the consent of the governed, — That whenever any Form of Government becomes destructive of these ends, it is the Right of the People to alter or to abolish it, and to institute new Government..."
+    </div>
+    <div style="font-size:11px;color:var(--text);line-height:1.9;margin-bottom:20px;">
+      The Declaration is not law in the technical sense — it has no enforcement mechanism, no penalty provisions, no cause of action. But it is the philosophical foundation upon which every law in this nation rests. When you file an EEOC charge, a MERC petition, or a constitutional motion — you are invoking the principle that the governed have rights the government must respect. The framers wrote these words not as poetry — but as a legal argument. They were advocates. So are you.
+    </div>
+    <div style="font-family:var(--cinzel);font-size:11px;color:var(--gold);letter-spacing:0.2em;margin-bottom:16px;">THE FRAMERS — INSPIRATION FOR SELF-ADVOCACY</div>
+    <div class="framer-grid">
+      <div class="framer-cell">
+        <div class="framer-name">Thomas Jefferson</div>
+        <div class="framer-role">Primary Author · Declaration of Independence</div>
+        <div class="framer-contribution">Articulated the philosophy that government authority derives from the people — not the other way around. His belief that rights are self-evident and unalienable is the intellectual basis for every civil rights claim.</div>
+      </div>
+      <div class="framer-cell">
+        <div class="framer-name">James Madison</div>
+        <div class="framer-role">Father of the Constitution · Bill of Rights Author</div>
+        <div class="framer-contribution">Wrote the first ten amendments — the Bill of Rights. The Fourth and Fourteenth Amendments that anchor your OWI suppression and civil rights matters trace directly to his framework for limiting government power.</div>
+      </div>
+      <div class="framer-cell">
+        <div class="framer-name">Alexander Hamilton</div>
+        <div class="framer-role">Federalist Papers · First Treasury Secretary</div>
+        <div class="framer-contribution">Argued for a strong federal government capable of enforcing rights. The federal agencies — NLRB, EEOC — exist because Hamilton's vision of federal authority prevailed. He built the mechanism you now use to hold employers accountable.</div>
+      </div>
+      <div class="framer-cell">
+        <div class="framer-name">John Adams</div>
+        <div class="framer-role">Defense Attorney · Second President</div>
+        <div class="framer-contribution">Defended British soldiers after the Boston Massacre — unpopular but principled. He believed the rule of law must apply to everyone equally. His legacy is the right to a fair process — the due process foundation of every hearing you attend.</div>
+      </div>
+      <div class="framer-cell">
+        <div class="framer-name">Frederick Douglass</div>
+        <div class="framer-role">Abolitionist · Constitutional Advocate</div>
+        <div class="framer-contribution">Not a framer by convention — but the moral architect of what the Constitution must mean. He argued the Constitution, properly read, was an anti-slavery document. His legacy is the Thirteenth and Fourteenth Amendments. His method was advocacy. His weapon was law.</div>
+      </div>
+      <div class="framer-cell">
+        <div class="framer-name">Thurgood Marshall</div>
+        <div class="framer-role">NAACP Legal Defense Fund · Supreme Court Justice</div>
+        <div class="framer-contribution">Used the law to dismantle segregation — argued Brown v. Board of Education. Proved that the courtroom is a battlefield and the Constitution is the weapon. The direct ancestor of every civil rights filing you make.</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;background:rgba(200,169,81,0.06);border:1px solid rgba(200,169,81,0.2);padding:16px 20px;">
+      <div style="font-family:var(--cinzel);font-size:10px;color:var(--gold);letter-spacing:0.2em;margin-bottom:8px;">STONE DYNASTY · JULY 4TH DECLARATION</div>
+      <div style="font-family:var(--serif);font-size:12px;color:var(--text);line-height:2;font-style:italic;">"The framers gave us the framework. Generations of advocates gave it teeth. Now it is our generation's turn to enforce it — not with petitions for permission, but with filings, with evidence, with strategy, and with the unshakeable belief that the law belongs to everyone it governs. This system — SYNTHEXIT — is built in that tradition. Happy Independence Day."</div>
+      <div style="font-size:9px;color:var(--muted);margin-top:8px;font-family:var(--cinzel);letter-spacing:0.15em;">— DOMINIQUE CLAYTON STONE · STONE DYNASTY™ · 2026</div>
+    </div>
+  </div>
 </div>
 
 <!-- ══ OWI ══ -->
 <div id="page-owi" style="display:none;" class="fade-in">
-  <div class="command-bar"><div class="cb-title">OWI · IMPLIED CONSENT</div><span class="cb-badge badge-red">CRITICAL</span></div>
-  <div class="countdown-block"><div><div class="cd-label">Time Until Hearing</div><div class="cd-time" id="owi-cd">—</div></div><div><div class="cd-event">Wyandotte Municipal Court</div><div style="font-size:10px;color:var(--muted);margin-top:3px;">Judge DiSanto · Atty DeBlois / Schlaff · June 10, 2026</div><div style="font-size:10px;color:var(--muted);">IR: 2026-00005348</div></div></div>
-  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Incident Report</div><div class="meta-val gold">2026-00005348</div></div><div class="meta-cell"><div class="meta-key">Forum</div><div class="meta-val">Wyandotte Municipal</div></div><div class="meta-cell"><div class="meta-key">Judge</div><div class="meta-val">DiSanto</div></div><div class="meta-cell"><div class="meta-key">Counsel</div><div class="meta-val">DeBlois / Schlaff</div></div><div class="meta-cell"><div class="meta-key">Hearing</div><div class="meta-val red">June 10, 2026</div></div><div class="meta-cell"><div class="meta-key">Retaliation Link</div><div class="meta-val red">March 17–21</div></div></div>
-  <div class="tabs"><button class="tab active" onclick="switchTab(this,'owi','motions')">Motions</button><button class="tab" onclick="switchTab(this,'owi','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'owi','law')">Law Database</button><button class="tab" onclick="switchTab(this,'owi','intel')">S.N.A.K.E. Intel</button></div>
-  <div id="owi-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Motion Practice</div><button class="section-add" onclick="addMotion('owi')">+ Add</button></div><div id="owi-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Motion to Suppress — Unlawful Stop</div><div class="motion-meta">Officer admitted plate recognition prior to stop · Retaliation nexus</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Motion in Limine — Exclude FST Results</div><div class="motion-meta">Pre-existing toe injury · Prior officer encounter</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Implied Consent Hearing Brief</div><div class="motion-meta">Retroreflective plate photographs · Nighttime documentation</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="owi-motion-form" style="display:none;" class="add-form"><input type="text" id="owi-motion-title" placeholder="Motion title..."/><input type="text" id="owi-motion-notes" placeholder="Notes..."/><input type="text" id="owi-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('owi')">Save</button><button class="btn-ghost" onclick="document.getElementById('owi-motion-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="owi-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('owi')">+ Log</button></div><div id="owi-evidence-list"><div class="evidence-row"><span class="ev-type ev-photo">PHOTO</span><div class="ev-name">Nighttime plate photographs — retroreflective</div><div class="ev-date">Mar 2026</div><div class="ev-sig">Contradicts plate light violation pretext</div></div><div class="evidence-row"><span class="ev-type ev-medical">MEDICAL</span><div class="ev-name">Toe injury records — pre-existing condition</div><div class="ev-date">Prior</div><div class="ev-sig">Explains FST · Links to prior officer encounter</div></div><div class="evidence-row"><span class="ev-type ev-doc">DOC</span><div class="ev-name">Incident Report 2026-00005348</div><div class="ev-date">2026</div><div class="ev-sig">Officer admission — plate ran before stop</div></div></div><div id="owi-evidence-form" style="display:none;" class="add-form"><select id="owi-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="owi-ev-name" placeholder="Description..."/><input type="text" id="owi-ev-date" placeholder="Date..."/><input type="text" id="owi-ev-sig" placeholder="Legal significance..."/><button class="btn-gold" onclick="saveEvidence('owi')">Log It</button><button class="btn-ghost" onclick="document.getElementById('owi-evidence-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="owi-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('owi')">+ Add Law</button></div><div id="owi-law-list"><div class="law-entry"><div class="law-citation">MCL 257.625</div><div class="law-title">Operating While Intoxicated</div><div class="law-text">Paste full statutory text from legislature.mi.gov</div></div><div class="law-entry"><div class="law-citation">Terry v. Ohio, 392 U.S. 1 (1968)</div><div class="law-title">Reasonable Articulable Suspicion Standard</div><div class="law-text">Paste holding. Key issue: stated basis for stop vs. retaliation motive.</div></div><div class="law-entry"><div class="law-citation">U.S. Const. Amend. IV</div><div class="law-title">Unreasonable Searches and Seizures</div><div class="law-text">Paste full text here.</div></div></div><div id="owi-law-form" style="display:none;" class="add-form"><input type="text" id="owi-law-citation" placeholder="Citation..."/><input type="text" id="owi-law-title" placeholder="Title..."/><textarea id="owi-law-text" placeholder="Paste full text..."></textarea><button class="btn-gold" onclick="saveLaw('owi')">Save</button><button class="btn-ghost" onclick="document.getElementById('owi-law-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="owi-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Standing Assessment</div><div class="intel-field"><div class="intel-key">Cross-Matter Flags</div><div class="intel-pills"><span class="intel-pill">March 17–21 Retaliation</span><span class="intel-pill">BUFINO Plate</span><span class="intel-pill">Prior Officer Encounter</span></div></div><div class="intel-field"><div class="intel-key">Assessment</div><div class="intel-val assessment">Suppress the stop. The officer ran BUFINO before initiating contact. That admission is the case. Everything downstream collapses with it.</div></div><div class="intel-field"><div class="intel-key">Paste New JSON</div><textarea id="owi-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;margin-top:6px;" placeholder="Paste S.N.A.K.E. JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('owi')">Parse</button></div><div id="owi-intel-output" style="margin-top:14px;"></div></div></div></div>
+  <div class="command-bar"><div class="cb-title">OWI · IMPLIED CONSENT</div><span class="cb-badge badge-red">CRITICAL</span></div>
+  <div class="countdown-block"><div><div class="cd-label">Time Until Hearing</div><div class="cd-time" id="owi-cd">—</div></div><div><div class="cd-event">Wyandotte Municipal Court</div><div style="font-size:10px;color:var(--muted);margin-top:3px;">Judge DiSanto · Atty DeBlois / Schlaff · June 10, 2026</div><div style="font-size:10px;color:var(--muted);">IR: 2026-00005348</div></div></div>
+  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Incident Report</div><div class="meta-val gold">2026-00005348</div></div><div class="meta-cell"><div class="meta-key">Forum</div><div class="meta-val">Wyandotte Municipal</div></div><div class="meta-cell"><div class="meta-key">Judge</div><div class="meta-val">DiSanto</div></div><div class="meta-cell"><div class="meta-key">Counsel</div><div class="meta-val">DeBlois / Schlaff</div></div><div class="meta-cell"><div class="meta-key">Hearing</div><div class="meta-val red">June 10, 2026</div></div><div class="meta-cell"><div class="meta-key">Retaliation Link</div><div class="meta-val red">March 17–21</div></div></div>
+  <div class="tabs"><button class="tab active" onclick="switchTab(this,'owi','motions')">Motions</button><button class="tab" onclick="switchTab(this,'owi','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'owi','law')">Law Database</button><button class="tab" onclick="switchTab(this,'owi','intel')">S.N.A.K.E. Intel</button></div>
+  <div id="owi-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Motion Practice</div><button class="section-add" onclick="addMotion('owi')">+ Add</button></div><div id="owi-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Motion to Suppress — Unlawful Stop</div><div class="motion-meta">Officer admitted plate recognition prior to stop · Retaliation nexus</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Motion in Limine — Exclude FST Results</div><div class="motion-meta">Pre-existing toe injury · Prior officer encounter</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Implied Consent Hearing Brief</div><div class="motion-meta">Retroreflective plate photographs · Nighttime documentation</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="owi-motion-form" style="display:none;" class="add-form"><input type="text" id="owi-motion-title" placeholder="Motion title..."/><input type="text" id="owi-motion-notes" placeholder="Notes..."/><input type="text" id="owi-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('owi')">Save</button><button class="btn-ghost" onclick="document.getElementById('owi-motion-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="owi-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('owi')">+ Log</button></div><div id="owi-evidence-list"><div class="evidence-row"><span class="ev-type ev-photo">PHOTO</span><div class="ev-name">Nighttime plate photographs — retroreflective</div><div class="ev-date">Mar 2026</div><div class="ev-sig">Contradicts plate light violation pretext</div></div><div class="evidence-row"><span class="ev-type ev-medical">MEDICAL</span><div class="ev-name">Toe injury records — pre-existing condition</div><div class="ev-date">Prior</div><div class="ev-sig">Explains FST · Links to prior officer encounter</div></div><div class="evidence-row"><span class="ev-type ev-doc">DOC</span><div class="ev-name">Incident Report 2026-00005348</div><div class="ev-date">2026</div><div class="ev-sig">Officer admission — plate ran before stop</div></div></div><div id="owi-evidence-form" style="display:none;" class="add-form"><select id="owi-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="owi-ev-name" placeholder="Description..."/><input type="text" id="owi-ev-date" placeholder="Date..."/><input type="text" id="owi-ev-sig" placeholder="Legal significance..."/><button class="btn-gold" onclick="saveEvidence('owi')">Log It</button><button class="btn-ghost" onclick="document.getElementById('owi-evidence-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="owi-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('owi')">+ Add Law</button></div><div id="owi-law-list"><div class="law-entry"><div class="law-citation">MCL 257.625</div><div class="law-title">Operating While Intoxicated</div><div class="law-text">Paste full statutory text from legislature.mi.gov</div></div><div class="law-entry"><div class="law-citation">Terry v. Ohio, 392 U.S. 1 (1968)</div><div class="law-title">Reasonable Articulable Suspicion Standard</div><div class="law-text">Paste holding. Key issue: stated basis for stop vs. retaliation motive.</div></div><div class="law-entry"><div class="law-citation">U.S. Const. Amend. IV</div><div class="law-title">Unreasonable Searches and Seizures</div><div class="law-text">Paste full text here.</div></div></div><div id="owi-law-form" style="display:none;" class="add-form"><input type="text" id="owi-law-citation" placeholder="Citation..."/><input type="text" id="owi-law-title" placeholder="Title..."/><textarea id="owi-law-text" placeholder="Paste full text..."></textarea><button class="btn-gold" onclick="saveLaw('owi')">Save</button><button class="btn-ghost" onclick="document.getElementById('owi-law-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="owi-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Standing Assessment</div><div class="intel-field"><div class="intel-key">Cross-Matter Flags</div><div class="intel-pills"><span class="intel-pill">March 17–21 Retaliation</span><span class="intel-pill">BUFINO Plate</span><span class="intel-pill">Prior Officer Encounter</span></div></div><div class="intel-field"><div class="intel-key">Assessment</div><div class="intel-val assessment">Suppress the stop. The officer ran BUFINO before initiating contact. That admission is the case. Everything downstream collapses with it.</div></div><div class="intel-field"><div class="intel-key">Paste New JSON</div><textarea id="owi-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;margin-top:6px;" placeholder="Paste S.N.A.K.E. JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('owi')">Parse</button></div><div id="owi-intel-output" style="margin-top:14px;"></div></div></div></div>
 </div>
 
 <!-- ══ VOP ══ -->
 <div id="page-vop" style="display:none;" class="fade-in">
-  <div class="command-bar"><div class="cb-title">VOP · 24-0773CTA</div><span class="cb-badge badge-red">CRITICAL</span></div>
-  <div class="countdown-block"><div><div class="cd-label">Time Until Hearing</div><div class="cd-time" id="vop-cd">—</div></div><div><div class="cd-event">VOP Hearing — June 16, 2026</div><div style="font-size:10px;color:var(--muted);margin-top:3px;">Judge Mullins · Atty Karman</div></div></div>
-  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Case</div><div class="meta-val gold">24-0773CTA</div></div><div class="meta-cell"><div class="meta-key">Judge</div><div class="meta-val">Mullins</div></div><div class="meta-cell"><div class="meta-key">Counsel</div><div class="meta-val">Atty Karman</div></div><div class="meta-cell"><div class="meta-key">Hearing</div><div class="meta-val red">June 16, 2026</div></div></div>
-  <div class="tabs"><button class="tab active" onclick="switchTab(this,'vop','motions')">Motions</button><button class="tab" onclick="switchTab(this,'vop','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'vop','law')">Law Database</button><button class="tab" onclick="switchTab(this,'vop','intel')">Intel</button></div>
-  <div id="vop-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Motion Practice</div><button class="section-add" onclick="addMotion('vop')">+ Add</button></div><div id="vop-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Attorney Briefing — VOP Strategy</div><div class="motion-meta">Retaliation pattern briefing for Atty Karman</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="vop-motion-form" style="display:none;" class="add-form"><input type="text" id="vop-motion-title" placeholder="Title..."/><input type="text" id="vop-motion-notes" placeholder="Notes..."/><input type="text" id="vop-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('vop')">Save</button><button class="btn-ghost" onclick="document.getElementById('vop-motion-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="vop-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('vop')">+ Log</button></div><div id="vop-evidence-list"></div><div id="vop-evidence-form" style="display:none;" class="add-form"><select id="vop-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="vop-ev-name" placeholder="Description..."/><input type="text" id="vop-ev-date" placeholder="Date..."/><input type="text" id="vop-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('vop')">Log It</button><button class="btn-ghost" onclick="document.getElementById('vop-evidence-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="vop-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('vop')">+ Add</button></div><div id="vop-law-list"></div><div id="vop-law-form" style="display:none;" class="add-form"><input type="text" id="vop-law-citation" placeholder="Citation..."/><input type="text" id="vop-law-title" placeholder="Title..."/><textarea id="vop-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('vop')">Save</button><button class="btn-ghost" onclick="document.getElementById('vop-law-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="vop-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="vop-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('vop')">Parse</button><div id="vop-intel-output" style="margin-top:14px;"></div></div></div></div>
+  <div class="command-bar"><div class="cb-title">VOP · 24-0773CTA</div><span class="cb-badge badge-red">CRITICAL</span></div>
+  <div class="countdown-block"><div><div class="cd-label">Time Until Hearing</div><div class="cd-time" id="vop-cd">—</div></div><div><div class="cd-event">VOP Hearing — June 16, 2026</div><div style="font-size:10px;color:var(--muted);margin-top:3px;">Judge Mullins · Atty Karman</div></div></div>
+  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Case</div><div class="meta-val gold">24-0773CTA</div></div><div class="meta-cell"><div class="meta-key">Judge</div><div class="meta-val">Mullins</div></div><div class="meta-cell"><div class="meta-key">Counsel</div><div class="meta-val">Atty Karman</div></div><div class="meta-cell"><div class="meta-key">Hearing</div><div class="meta-val red">June 16, 2026</div></div></div>
+  <div class="tabs"><button class="tab active" onclick="switchTab(this,'vop','motions')">Motions</button><button class="tab" onclick="switchTab(this,'vop','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'vop','law')">Law Database</button><button class="tab" onclick="switchTab(this,'vop','intel')">Intel</button></div>
+  <div id="vop-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Motion Practice</div><button class="section-add" onclick="addMotion('vop')">+ Add</button></div><div id="vop-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Attorney Briefing — VOP Strategy</div><div class="motion-meta">Retaliation pattern briefing for Atty Karman</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="vop-motion-form" style="display:none;" class="add-form"><input type="text" id="vop-motion-title" placeholder="Title..."/><input type="text" id="vop-motion-notes" placeholder="Notes..."/><input type="text" id="vop-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('vop')">Save</button><button class="btn-ghost" onclick="document.getElementById('vop-motion-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="vop-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('vop')">+ Log</button></div><div id="vop-evidence-list"></div><div id="vop-evidence-form" style="display:none;" class="add-form"><select id="vop-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="vop-ev-name" placeholder="Description..."/><input type="text" id="vop-ev-date" placeholder="Date..."/><input type="text" id="vop-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('vop')">Log It</button><button class="btn-ghost" onclick="document.getElementById('vop-evidence-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="vop-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('vop')">+ Add</button></div><div id="vop-law-list"></div><div id="vop-law-form" style="display:none;" class="add-form"><input type="text" id="vop-law-citation" placeholder="Citation..."/><input type="text" id="vop-law-title" placeholder="Title..."/><textarea id="vop-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('vop')">Save</button><button class="btn-ghost" onclick="document.getElementById('vop-law-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="vop-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="vop-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('vop')">Parse</button><div id="vop-intel-output" style="margin-top:14px;"></div></div></div></div>
 </div>
 
 <!-- ══ DISORDERLY ══ -->
 <div id="page-disorderly" style="display:none;" class="fade-in">
-  <div class="command-bar"><div class="cb-title">Disorderly Conduct · T645937</div><span class="cb-badge badge-gold">HIGH</span></div>
-  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Citation</div><div class="meta-val gold">T645937</div></div><div class="meta-cell"><div class="meta-key">Case</div><div class="meta-val">2026-02651</div></div><div class="meta-cell"><div class="meta-key">Forum</div><div class="meta-val">33rd District</div></div><div class="meta-cell"><div class="meta-key">Counsel</div><div class="meta-val">Atty Schlaff</div></div><div class="meta-cell"><div class="meta-key">Retaliation</div><div class="meta-val red">March 17</div></div></div>
-  <div class="tabs"><button class="tab active" onclick="switchTab(this,'disorderly','motions')">Motions</button><button class="tab" onclick="switchTab(this,'disorderly','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'disorderly','law')">Law Database</button><button class="tab" onclick="switchTab(this,'disorderly','intel')">Intel</button></div>
-  <div id="disorderly-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Motion Practice</div><button class="section-add" onclick="addMotion('disorderly')">+ Add</button></div><div id="disorderly-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Client Autonomy Letter — MRPC 1.2</div><div class="motion-meta">Directing Atty Schlaff on strategy</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Pretrial Motion List</div><div class="motion-meta">Complete motion strategy brief</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="disorderly-motion-form" style="display:none;" class="add-form"><input type="text" id="disorderly-motion-title" placeholder="Title..."/><input type="text" id="disorderly-motion-notes" placeholder="Notes..."/><input type="text" id="disorderly-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('disorderly')">Save</button><button class="btn-ghost" onclick="document.getElementById('disorderly-motion-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="disorderly-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('disorderly')">+ Log</button></div><div id="disorderly-evidence-list"></div><div id="disorderly-evidence-form" style="display:none;" class="add-form"><select id="disorderly-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="disorderly-ev-name" placeholder="Description..."/><input type="text" id="disorderly-ev-date" placeholder="Date..."/><input type="text" id="disorderly-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('disorderly')">Log It</button><button class="btn-ghost" onclick="document.getElementById('disorderly-evidence-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="disorderly-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('disorderly')">+ Add</button></div><div id="disorderly-law-list"><div class="law-entry"><div class="law-citation">MCL 750.167</div><div class="law-title">Disorderly Persons — Michigan Statute</div><div class="law-text">Paste full text from legislature.mi.gov</div></div><div class="law-entry"><div class="law-citation">MRPC 1.2</div><div class="law-title">Scope of Representation — Client Autonomy</div><div class="law-text">Paste full rule text here.</div></div></div><div id="disorderly-law-form" style="display:none;" class="add-form"><input type="text" id="disorderly-law-citation" placeholder="Citation..."/><input type="text" id="disorderly-law-title" placeholder="Title..."/><textarea id="disorderly-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('disorderly')">Save</button><button class="btn-ghost" onclick="document.getElementById('disorderly-law-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="disorderly-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="disorderly-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('disorderly')">Parse</button><div id="disorderly-intel-output" style="margin-top:14px;"></div></div></div></div>
+  <div class="command-bar"><div class="cb-title">Disorderly Conduct · T645937</div><span class="cb-badge badge-gold">HIGH</span></div>
+  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Citation</div><div class="meta-val gold">T645937</div></div><div class="meta-cell"><div class="meta-key">Case</div><div class="meta-val">2026-02651</div></div><div class="meta-cell"><div class="meta-key">Forum</div><div class="meta-val">33rd District</div></div><div class="meta-cell"><div class="meta-key">Counsel</div><div class="meta-val">Atty Schlaff</div></div><div class="meta-cell"><div class="meta-key">Retaliation</div><div class="meta-val red">March 17</div></div></div>
+  <div class="tabs"><button class="tab active" onclick="switchTab(this,'disorderly','motions')">Motions</button><button class="tab" onclick="switchTab(this,'disorderly','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'disorderly','law')">Law Database</button><button class="tab" onclick="switchTab(this,'disorderly','intel')">Intel</button></div>
+  <div id="disorderly-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Motion Practice</div><button class="section-add" onclick="addMotion('disorderly')">+ Add</button></div><div id="disorderly-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Client Autonomy Letter — MRPC 1.2</div><div class="motion-meta">Directing Atty Schlaff on strategy</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">Pretrial Motion List</div><div class="motion-meta">Complete motion strategy brief</div><span class="motion-status status-draft">DRAFT</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="disorderly-motion-form" style="display:none;" class="add-form"><input type="text" id="disorderly-motion-title" placeholder="Title..."/><input type="text" id="disorderly-motion-notes" placeholder="Notes..."/><input type="text" id="disorderly-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('disorderly')">Save</button><button class="btn-ghost" onclick="document.getElementById('disorderly-motion-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="disorderly-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('disorderly')">+ Log</button></div><div id="disorderly-evidence-list"></div><div id="disorderly-evidence-form" style="display:none;" class="add-form"><select id="disorderly-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="disorderly-ev-name" placeholder="Description..."/><input type="text" id="disorderly-ev-date" placeholder="Date..."/><input type="text" id="disorderly-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('disorderly')">Log It</button><button class="btn-ghost" onclick="document.getElementById('disorderly-evidence-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="disorderly-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('disorderly')">+ Add</button></div><div id="disorderly-law-list"><div class="law-entry"><div class="law-citation">MCL 750.167</div><div class="law-title">Disorderly Persons — Michigan Statute</div><div class="law-text">Paste full text from legislature.mi.gov</div></div><div class="law-entry"><div class="law-citation">MRPC 1.2</div><div class="law-title">Scope of Representation — Client Autonomy</div><div class="law-text">Paste full rule text here.</div></div></div><div id="disorderly-law-form" style="display:none;" class="add-form"><input type="text" id="disorderly-law-citation" placeholder="Citation..."/><input type="text" id="disorderly-law-title" placeholder="Title..."/><textarea id="disorderly-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('disorderly')">Save</button><button class="btn-ghost" onclick="document.getElementById('disorderly-law-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="disorderly-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="disorderly-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('disorderly')">Parse</button><div id="disorderly-intel-output" style="margin-top:14px;"></div></div></div></div>
 </div>
 
 <!-- ══ NLRB ══ -->
 <div id="page-nlrb" style="display:none;" class="fade-in">
-  <div class="command-bar"><div class="cb-title">NLRB · 07-CB-381443</div><span class="cb-badge badge-gold">HIGH</span></div>
-  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Charge</div><div class="meta-val gold">07-CB-381443</div></div><div class="meta-cell"><div class="meta-key">Forum</div><div class="meta-val">NLRB Federal</div></div><div class="meta-cell"><div class="meta-key">Incident</div><div class="meta-val">Sept 17, 2025</div></div><div class="meta-cell"><div class="meta-key">Key Actor</div><div class="meta-val red">Craig Kitchen</div></div><div class="meta-cell"><div class="meta-key">Employer</div><div class="meta-val">Hearn Industrial</div></div><div class="meta-cell"><div class="meta-key">Site</div><div class="meta-val">Ford Michigan Assembly</div></div></div>
-  <div class="tabs"><button class="tab active" onclick="switchTab(this,'nlrb','motions')">Filings</button><button class="tab" onclick="switchTab(this,'nlrb','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'nlrb','law')">Law Database</button><button class="tab" onclick="switchTab(this,'nlrb','intel')">Intel</button></div>
-  <div id="nlrb-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Filings</div><button class="section-add" onclick="addMotion('nlrb')">+ Add</button></div><div id="nlrb-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">NLRB Charge 07-CB-381443</div><div class="motion-meta">Against Teamsters Local 299 · Duty of Fair Representation</div><span class="motion-status status-filed">FILED</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="nlrb-motion-form" style="display:none;" class="add-form"><input type="text" id="nlrb-motion-title" placeholder="Title..."/><input type="text" id="nlrb-motion-notes" placeholder="Notes..."/><input type="text" id="nlrb-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('nlrb')">Save</button><button class="btn-ghost" onclick="document.getElementById('nlrb-motion-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="nlrb-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('nlrb')">+ Log</button></div><div id="nlrb-evidence-list"><div class="evidence-row"><span class="ev-type ev-text">TEXT</span><div class="ev-name">Craig Kitchen text messages</div><div class="ev-date">Sept 2025</div><div class="ev-sig">Direct evidence — management conduct</div></div><div class="evidence-row"><span class="ev-type ev-audio">AUDIO</span><div class="ev-name">Oct 2, 2025 Grievance Hearing Recording</div><div class="ev-date">Oct 2, 2025</div><div class="ev-sig">Management admissions — core across all admin matters</div></div></div><div id="nlrb-evidence-form" style="display:none;" class="add-form"><select id="nlrb-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="nlrb-ev-name" placeholder="Description..."/><input type="text" id="nlrb-ev-date" placeholder="Date..."/><input type="text" id="nlrb-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('nlrb')">Log It</button><button class="btn-ghost" onclick="document.getElementById('nlrb-evidence-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="nlrb-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('nlrb')">+ Add</button></div><div id="nlrb-law-list"><div class="law-entry"><div class="law-citation">29 U.S.C. § 158(b)(1)(A)</div><div class="law-title">Duty of Fair Representation — NLRA § 8(b)(1)(A)</div><div class="law-text">Paste full statutory text. Primary charge basis against Teamsters Local 299.</div></div><div class="law-entry"><div class="law-citation">Vaca v. Sipes, 386 U.S. 171 (1967)</div><div class="law-title">Duty of Fair Representation — Leading Case</div><div class="law-text">Paste relevant holding and key excerpts.</div></div></div><div id="nlrb-law-form" style="display:none;" class="add-form"><input type="text" id="nlrb-law-citation" placeholder="Citation..."/><input type="text" id="nlrb-law-title" placeholder="Title..."/><textarea id="nlrb-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('nlrb')">Save</button><button class="btn-ghost" onclick="document.getElementById('nlrb-law-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="nlrb-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="nlrb-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('nlrb')">Parse</button><div id="nlrb-intel-output" style="margin-top:14px;"></div></div></div></div>
+  <div class="command-bar"><div class="cb-title">NLRB · 07-CB-381443</div><span class="cb-badge badge-gold">HIGH</span></div>
+  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Charge</div><div class="meta-val gold">07-CB-381443</div></div><div class="meta-cell"><div class="meta-key">Forum</div><div class="meta-val">NLRB Federal</div></div><div class="meta-cell"><div class="meta-key">Incident</div><div class="meta-val">Sept 17, 2025</div></div><div class="meta-cell"><div class="meta-key">Key Actor</div><div class="meta-val red">Craig Kitchen</div></div><div class="meta-cell"><div class="meta-key">Employer</div><div class="meta-val">Hearn Industrial</div></div><div class="meta-cell"><div class="meta-key">Site</div><div class="meta-val">Ford Michigan Assembly</div></div></div>
+  <div class="tabs"><button class="tab active" onclick="switchTab(this,'nlrb','motions')">Filings</button><button class="tab" onclick="switchTab(this,'nlrb','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'nlrb','law')">Law Database</button><button class="tab" onclick="switchTab(this,'nlrb','intel')">Intel</button></div>
+  <div id="nlrb-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Filings</div><button class="section-add" onclick="addMotion('nlrb')">+ Add</button></div><div id="nlrb-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">NLRB Charge 07-CB-381443</div><div class="motion-meta">Against Teamsters Local 299 · Duty of Fair Representation</div><span class="motion-status status-filed">FILED</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="nlrb-motion-form" style="display:none;" class="add-form"><input type="text" id="nlrb-motion-title" placeholder="Title..."/><input type="text" id="nlrb-motion-notes" placeholder="Notes..."/><input type="text" id="nlrb-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('nlrb')">Save</button><button class="btn-ghost" onclick="document.getElementById('nlrb-motion-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="nlrb-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('nlrb')">+ Log</button></div><div id="nlrb-evidence-list"><div class="evidence-row"><span class="ev-type ev-text">TEXT</span><div class="ev-name">Craig Kitchen text messages</div><div class="ev-date">Sept 2025</div><div class="ev-sig">Direct evidence — management conduct</div></div><div class="evidence-row"><span class="ev-type ev-audio">AUDIO</span><div class="ev-name">Oct 2, 2025 Grievance Hearing Recording</div><div class="ev-date">Oct 2, 2025</div><div class="ev-sig">Management admissions — core across all admin matters</div></div></div><div id="nlrb-evidence-form" style="display:none;" class="add-form"><select id="nlrb-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="nlrb-ev-name" placeholder="Description..."/><input type="text" id="nlrb-ev-date" placeholder="Date..."/><input type="text" id="nlrb-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('nlrb')">Log It</button><button class="btn-ghost" onclick="document.getElementById('nlrb-evidence-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="nlrb-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('nlrb')">+ Add</button></div><div id="nlrb-law-list"><div class="law-entry"><div class="law-citation">29 U.S.C. § 158(b)(1)(A)</div><div class="law-title">Duty of Fair Representation — NLRA § 8(b)(1)(A)</div><div class="law-text">Paste full statutory text. Primary charge basis against Teamsters Local 299.</div></div><div class="law-entry"><div class="law-citation">Vaca v. Sipes, 386 U.S. 171 (1967)</div><div class="law-title">Duty of Fair Representation — Leading Case</div><div class="law-text">Paste relevant holding and key excerpts.</div></div></div><div id="nlrb-law-form" style="display:none;" class="add-form"><input type="text" id="nlrb-law-citation" placeholder="Citation..."/><input type="text" id="nlrb-law-title" placeholder="Title..."/><textarea id="nlrb-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('nlrb')">Save</button><button class="btn-ghost" onclick="document.getElementById('nlrb-law-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="nlrb-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="nlrb-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('nlrb')">Parse</button><div id="nlrb-intel-output" style="margin-top:14px;"></div></div></div></div>
 </div>
 
 <!-- ══ MDCR ══ -->
 <div id="page-mdcr" style="display:none;" class="fade-in">
-  <div class="command-bar"><div class="cb-title">MDCR / EEOC</div><span class="cb-badge badge-gold">HIGH</span></div>
-  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">MDCR Case</div><div class="meta-val gold">663943</div></div><div class="meta-cell"><div class="meta-key">EEOC Charge</div><div class="meta-val gold">483-2024-03891</div></div><div class="meta-cell"><div class="meta-key">Investigator</div><div class="meta-val">Joseph Duby</div></div><div class="meta-cell"><div class="meta-key">Incident</div><div class="meta-val">Sept 17, 2025</div></div></div>
-  <div class="tabs"><button class="tab active" onclick="switchTab(this,'mdcr','motions')">Filings</button><button class="tab" onclick="switchTab(this,'mdcr','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'mdcr','law')">Law Database</button><button class="tab" onclick="switchTab(this,'mdcr','intel')">Intel</button></div>
-  <div id="mdcr-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Filings</div><button class="section-add" onclick="addMotion('mdcr')">+ Add</button></div><div id="mdcr-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">MDCR Complaint 663943</div><div class="motion-meta">Michigan Dept of Civil Rights · Investigator Duby</div><span class="motion-status status-filed">FILED</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="mdcr-motion-form" style="display:none;" class="add-form"><input type="text" id="mdcr-motion-title" placeholder="Title..."/><input type="text" id="mdcr-motion-notes" placeholder="Notes..."/><input type="text" id="mdcr-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('mdcr')">Save</button><button class="btn-ghost" onclick="document.getElementById('mdcr-motion-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="mdcr-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('mdcr')">+ Log</button></div><div id="mdcr-evidence-list"><div class="evidence-row"><span class="ev-type ev-audio">AUDIO</span><div class="ev-name">Oct 2, 2025 Grievance Hearing Recording</div><div class="ev-date">Oct 2, 2025</div><div class="ev-sig">Management admissions — core shared evidence</div></div></div><div id="mdcr-evidence-form" style="display:none;" class="add-form"><select id="mdcr-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="mdcr-ev-name" placeholder="Description..."/><input type="text" id="mdcr-ev-date" placeholder="Date..."/><input type="text" id="mdcr-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('mdcr')">Log It</button><button class="btn-ghost" onclick="document.getElementById('mdcr-evidence-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="mdcr-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('mdcr')">+ Add</button></div><div id="mdcr-law-list"><div class="law-entry"><div class="law-citation">MCL 37.2101 et seq.</div><div class="law-title">Elliott-Larsen Civil Rights Act</div><div class="law-text">Paste text. Primary MDCR basis.</div></div><div class="law-entry"><div class="law-citation">42 U.S.C. § 2000e et seq.</div><div class="law-title">Title VII — Civil Rights Act of 1964</div><div class="law-text">Paste relevant provisions. EEOC charge basis.</div></div></div><div id="mdcr-law-form" style="display:none;" class="add-form"><input type="text" id="mdcr-law-citation" placeholder="Citation..."/><input type="text" id="mdcr-law-title" placeholder="Title..."/><textarea id="mdcr-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('mdcr')">Save</button><button class="btn-ghost" onclick="document.getElementById('mdcr-law-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="mdcr-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="mdcr-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('mdcr')">Parse</button><div id="mdcr-intel-output" style="margin-top:14px;"></div></div></div></div>
+  <div class="command-bar"><div class="cb-title">MDCR / EEOC</div><span class="cb-badge badge-gold">HIGH</span></div>
+  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">MDCR Case</div><div class="meta-val gold">663943</div></div><div class="meta-cell"><div class="meta-key">EEOC Charge</div><div class="meta-val gold">483-2024-03891</div></div><div class="meta-cell"><div class="meta-key">Investigator</div><div class="meta-val">Joseph Duby</div></div><div class="meta-cell"><div class="meta-key">Incident</div><div class="meta-val">Sept 17, 2025</div></div></div>
+  <div class="tabs"><button class="tab active" onclick="switchTab(this,'mdcr','motions')">Filings</button><button class="tab" onclick="switchTab(this,'mdcr','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'mdcr','law')">Law Database</button><button class="tab" onclick="switchTab(this,'mdcr','intel')">Intel</button></div>
+  <div id="mdcr-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Filings</div><button class="section-add" onclick="addMotion('mdcr')">+ Add</button></div><div id="mdcr-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">MDCR Complaint 663943</div><div class="motion-meta">Michigan Dept of Civil Rights · Investigator Duby</div><span class="motion-status status-filed">FILED</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="mdcr-motion-form" style="display:none;" class="add-form"><input type="text" id="mdcr-motion-title" placeholder="Title..."/><input type="text" id="mdcr-motion-notes" placeholder="Notes..."/><input type="text" id="mdcr-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('mdcr')">Save</button><button class="btn-ghost" onclick="document.getElementById('mdcr-motion-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="mdcr-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('mdcr')">+ Log</button></div><div id="mdcr-evidence-list"><div class="evidence-row"><span class="ev-type ev-audio">AUDIO</span><div class="ev-name">Oct 2, 2025 Grievance Hearing Recording</div><div class="ev-date">Oct 2, 2025</div><div class="ev-sig">Management admissions — core shared evidence</div></div></div><div id="mdcr-evidence-form" style="display:none;" class="add-form"><select id="mdcr-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="mdcr-ev-name" placeholder="Description..."/><input type="text" id="mdcr-ev-date" placeholder="Date..."/><input type="text" id="mdcr-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('mdcr')">Log It</button><button class="btn-ghost" onclick="document.getElementById('mdcr-evidence-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="mdcr-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('mdcr')">+ Add</button></div><div id="mdcr-law-list"><div class="law-entry"><div class="law-citation">MCL 37.2101 et seq.</div><div class="law-title">Elliott-Larsen Civil Rights Act</div><div class="law-text">Paste text. Primary MDCR basis.</div></div><div class="law-entry"><div class="law-citation">42 U.S.C. § 2000e et seq.</div><div class="law-title">Title VII — Civil Rights Act of 1964</div><div class="law-text">Paste relevant provisions. EEOC charge basis.</div></div></div><div id="mdcr-law-form" style="display:none;" class="add-form"><input type="text" id="mdcr-law-citation" placeholder="Citation..."/><input type="text" id="mdcr-law-title" placeholder="Title..."/><textarea id="mdcr-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('mdcr')">Save</button><button class="btn-ghost" onclick="document.getElementById('mdcr-law-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="mdcr-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="mdcr-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('mdcr')">Parse</button><div id="mdcr-intel-output" style="margin-top:14px;"></div></div></div></div>
 </div>
 
 <!-- ══ MERC ══ -->
 <div id="page-merc" style="display:none;" class="fade-in">
-  <div class="command-bar"><div class="cb-title">MERC · 26-A-0164 / 0165</div><span class="cb-badge badge-purple">MONITOR</span></div>
-  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Case (Union)</div><div class="meta-val gold">26-A-0164-CU</div></div><div class="meta-cell"><div class="meta-key">vs. Teamsters</div><div class="meta-val">Local 299</div></div><div class="meta-cell"><div class="meta-key">Case (Employer)</div><div class="meta-val gold">26-A-0165-CE</div></div><div class="meta-cell"><div class="meta-key">vs. Respondents</div><div class="meta-val">Hearn · Ford</div></div></div>
-  <div class="tabs"><button class="tab active" onclick="switchTab(this,'merc','motions')">Filings</button><button class="tab" onclick="switchTab(this,'merc','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'merc','law')">Law Database</button><button class="tab" onclick="switchTab(this,'merc','intel')">Intel</button></div>
-  <div id="merc-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Filings</div><button class="section-add" onclick="addMotion('merc')">+ Add</button></div><div id="merc-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">MERC 26-A-0164-CU — Teamsters Local 299</div><div class="motion-meta">Unfair labor practice — union conduct</div><span class="motion-status status-filed">FILED</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">MERC 26-A-0165-CE — Hearn Industrial / Ford</div><div class="motion-meta">Employer unfair labor practice</div><span class="motion-status status-filed">FILED</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="merc-motion-form" style="display:none;" class="add-form"><input type="text" id="merc-motion-title" placeholder="Title..."/><input type="text" id="merc-motion-notes" placeholder="Notes..."/><input type="text" id="merc-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('merc')">Save</button><button class="btn-ghost" onclick="document.getElementById('merc-motion-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="merc-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('merc')">+ Log</button></div><div id="merc-evidence-list"><div class="evidence-row"><span class="ev-type ev-doc">DOC</span><div class="ev-name">24-month recall list placement</div><div class="ev-date">Post-Sept 2025</div><div class="ev-sig">Recall vs. reinstatement — key remedy evidence</div></div></div><div id="merc-evidence-form" style="display:none;" class="add-form"><select id="merc-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="merc-ev-name" placeholder="Description..."/><input type="text" id="merc-ev-date" placeholder="Date..."/><input type="text" id="merc-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('merc')">Log It</button><button class="btn-ghost" onclick="document.getElementById('merc-evidence-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="merc-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('merc')">+ Add</button></div><div id="merc-law-list"><div class="law-entry"><div class="law-citation">MCL 423.210</div><div class="law-title">Michigan Labor Mediation Act — Unfair Labor Practices</div><div class="law-text">Paste text for MERC proceedings reference.</div></div></div><div id="merc-law-form" style="display:none;" class="add-form"><input type="text" id="merc-law-citation" placeholder="Citation..."/><input type="text" id="merc-law-title" placeholder="Title..."/><textarea id="merc-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('merc')">Save</button><button class="btn-ghost" onclick="document.getElementById('merc-law-form').style.display='none'">Cancel</button></div></div></div>
-  <div id="merc-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="merc-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('merc')">Parse</button><div id="merc-intel-output" style="margin-top:14px;"></div></div></div></div>
+  <div class="command-bar"><div class="cb-title">MERC · 26-A-0164 / 0165</div><span class="cb-badge badge-purple">MONITOR</span></div>
+  <div class="meta-grid"><div class="meta-cell"><div class="meta-key">Case (Union)</div><div class="meta-val gold">26-A-0164-CU</div></div><div class="meta-cell"><div class="meta-key">vs. Teamsters</div><div class="meta-val">Local 299</div></div><div class="meta-cell"><div class="meta-key">Case (Employer)</div><div class="meta-val gold">26-A-0165-CE</div></div><div class="meta-cell"><div class="meta-key">vs. Respondents</div><div class="meta-val">Hearn · Ford</div></div></div>
+  <div class="tabs"><button class="tab active" onclick="switchTab(this,'merc','motions')">Filings</button><button class="tab" onclick="switchTab(this,'merc','evidence')">Evidence</button><button class="tab" onclick="switchTab(this,'merc','law')">Law Database</button><button class="tab" onclick="switchTab(this,'merc','intel')">Intel</button></div>
+  <div id="merc-motions" class="tab-content"><div class="section"><div class="section-head"><div class="section-title">Filings</div><button class="section-add" onclick="addMotion('merc')">+ Add</button></div><div id="merc-motions-list"><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">MERC 26-A-0164-CU — Teamsters Local 299</div><div class="motion-meta">Unfair labor practice — union conduct</div><span class="motion-status status-filed">FILED</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div><div class="motion-card"><div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">MERC 26-A-0165-CE — Hearn Industrial / Ford</div><div class="motion-meta">Employer unfair labor practice</div><span class="motion-status status-filed">FILED</span></div><a href="#" class="motion-link disabled">OPEN DOC ↗</a></div></div><div id="merc-motion-form" style="display:none;" class="add-form"><input type="text" id="merc-motion-title" placeholder="Title..."/><input type="text" id="merc-motion-notes" placeholder="Notes..."/><input type="text" id="merc-motion-gdoc" placeholder="Google Doc URL..."/><button class="btn-gold" onclick="saveMotion('merc')">Save</button><button class="btn-ghost" onclick="document.getElementById('merc-motion-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="merc-evidence" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Evidence Log</div><button class="section-add" onclick="addEvidence('merc')">+ Log</button></div><div id="merc-evidence-list"><div class="evidence-row"><span class="ev-type ev-doc">DOC</span><div class="ev-name">24-month recall list placement</div><div class="ev-date">Post-Sept 2025</div><div class="ev-sig">Recall vs. reinstatement — key remedy evidence</div></div></div><div id="merc-evidence-form" style="display:none;" class="add-form"><select id="merc-ev-type" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-bottom:9px;"><option>PHOTO</option><option>AUDIO</option><option>MEDICAL</option><option>TEXT</option><option>DOC</option></select><input type="text" id="merc-ev-name" placeholder="Description..."/><input type="text" id="merc-ev-date" placeholder="Date..."/><input type="text" id="merc-ev-sig" placeholder="Significance..."/><button class="btn-gold" onclick="saveEvidence('merc')">Log It</button><button class="btn-ghost" onclick="document.getElementById('merc-evidence-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="merc-law" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">Law Database</div><button class="section-add" onclick="showLawForm('merc')">+ Add</button></div><div id="merc-law-list"><div class="law-entry"><div class="law-citation">MCL 423.210</div><div class="law-title">Michigan Labor Mediation Act — Unfair Labor Practices</div><div class="law-text">Paste text for MERC proceedings reference.</div></div></div><div id="merc-law-form" style="display:none;" class="add-form"><input type="text" id="merc-law-citation" placeholder="Citation..."/><input type="text" id="merc-law-title" placeholder="Title..."/><textarea id="merc-law-text" placeholder="Paste text..."></textarea><button class="btn-gold" onclick="saveLaw('merc')">Save</button><button class="btn-ghost" onclick="document.getElementById('merc-law-form').style.display='none'">Cancel</button></div></div></div>
+  <div id="merc-intel" class="tab-content" style="display:none;"><div class="section"><div class="section-head"><div class="section-title">S.N.A.K.E. Intelligence</div></div><div class="intel-panel"><div class="intel-tag">⬡ Paste Pipeline Output</div><textarea id="merc-intel-paste" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:11px;height:100px;outline:none;resize:vertical;" placeholder="Paste JSON..."></textarea><button class="btn-gold" style="margin-top:8px;" onclick="parseIntel('merc')">Parse</button><div id="merc-intel-output" style="margin-top:14px;"></div></div></div></div>
 </div>
 
 <!-- ══ SETUP ══ -->
 <div id="page-setup" style="display:none;" class="fade-in">
-  <div class="command-bar"><div class="cb-title">Pipeline Setup</div><span class="cb-badge badge-green">CONFIG</span></div>
-  <div class="sync-bar"><div class="sync-dot"></div>Configure GitHub token and Sheets URL to activate live data sync</div>
-  <div class="section"><div class="section-head"><div class="section-title">GitHub Integration</div></div>
-    <div class="setup-step"><div class="setup-num">01</div><div class="setup-title">GitHub Personal Access Token</div><div class="setup-desc">Generate at github.com/settings/tokens with repo scope.</div><input type="password" id="gh-token-input" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-top:10px;outline:none;"/><input type="text" id="gh-repo-input" placeholder="dassociation22-code/synthexit.github.io" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-top:7px;outline:none;"/><button class="btn-gold" style="margin-top:9px;" onclick="saveGHConfig()">Save & Test</button><div id="gh-test-result" style="margin-top:7px;font-size:10px;color:var(--muted);"></div></div>
-    <div class="setup-step"><div class="setup-num">02</div><div class="setup-title">Google Sheets Published CSV URL</div><input type="text" id="sheets-url-input" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-top:10px;outline:none;"/><button class="btn-gold" style="margin-top:9px;" onclick="saveSheetsConfig()">Save</button><div id="sheets-test-result" style="margin-top:7px;font-size:10px;color:var(--muted);"></div></div>
-    <div class="setup-step"><div class="setup-num">03</div><div class="setup-title">Deploy to GitHub Pages</div><div class="setup-desc">Settings → Pages → Source: GitHub Actions → Static HTML → Configure → Commit<br/>Live URL: <strong style="color:var(--gold);">https://dassociation22-code.github.io/synthexit.github.io/</strong></div><div class="code-block">git add index.html
+  <div class="command-bar"><div class="cb-title">Pipeline Setup</div><span class="cb-badge badge-green">CONFIG</span></div>
+  <div class="sync-bar"><div class="sync-dot"></div>Configure GitHub token and Sheets URL to activate live data sync</div>
+  <div class="section"><div class="section-head"><div class="section-title">GitHub Integration</div></div>
+    <div class="setup-step"><div class="setup-num">01</div><div class="setup-title">GitHub Personal Access Token</div><div class="setup-desc">Generate at github.com/settings/tokens with repo scope.</div><input type="password" id="gh-token-input" placeholder="ghp_xxxxxxxxxxxx" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-top:10px;outline:none;"/><input type="text" id="gh-repo-input" placeholder="dassociation22-code/synthexit.github.io" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-top:7px;outline:none;"/><button class="btn-gold" style="margin-top:9px;" onclick="saveGHConfig()">Save & Test</button><div id="gh-test-result" style="margin-top:7px;font-size:10px;color:var(--muted);"></div></div>
+    <div class="setup-step"><div class="setup-num">02</div><div class="setup-title">Google Sheets Published CSV URL</div><input type="text" id="sheets-url-input" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv" style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:10px;font-family:var(--mono);font-size:12px;margin-top:10px;outline:none;"/><button class="btn-gold" style="margin-top:9px;" onclick="saveSheetsConfig()">Save</button><div id="sheets-test-result" style="margin-top:7px;font-size:10px;color:var(--muted);"></div></div>
+    <div class="setup-step"><div class="setup-num">03</div><div class="setup-title">Deploy to GitHub Pages</div><div class="setup-desc">Settings → Pages → Source: GitHub Actions → Static HTML → Configure → Commit<br/>Live URL: <strong style="color:var(--gold);">https://dassociation22-code.github.io/synthexit.github.io/</strong></div><div class="code-block">git add index.html
 git commit -m "Stone Dynasty War Room — SYNTHEXIT"
 git push origin main</div></div>
-    <div class="setup-step"><div class="setup-num">04</div><div class="setup-title">Make.com Sheets Column Map</div><div class="code-block">A:agency  B:urgency  C:legal_significance
-D:deadlines  E:recommended_actions
-F:cross_matter_flags  G:snake_assessment  H:{{now}}</div></div>
-    <div class="setup-step"><div class="setup-num">05</div><div class="setup-title">GitHub Webhook</div><div class="setup-desc">Settings → Webhooks → Add webhook<br/>Payload URL: Make.com webhook URL<br/>Content type: application/json · Events: Issues + Push</div></div>
-  </div>
+    <div class="setup-step"><div class="setup-num">04</div><div class="setup-title">Make.com Sheets Column Map</div><div class="code-block">A:agency  B:urgency  C:legal_significance
+D:deadlines  E:recommended_actions
+F:cross_matter_flags  G:snake_assessment  H:{{now}}</div></div>
+    <div class="setup-step"><div class="setup-num">05</div><div class="setup-title">GitHub Webhook</div><div class="setup-desc">Settings → Webhooks → Add webhook<br/>Payload URL: Make.com webhook URL<br/>Content type: application/json · Events: Issues + Push</div></div>
+  </div>
 </div>
 
 </main>
@@ -705,227 +718,227 @@ F:cross_matter_flags  G:snake_assessment  H:{{now}}</div></div>
 
 <script>
 const S={
-  ghToken:localStorage.getItem('gh_token')||'',
-  ghRepo:localStorage.getItem('gh_repo')||'dassociation22-code/synthexit.github.io',
-  sheetsUrl:localStorage.getItem('sheets_url')||'',
-  laws:JSON.parse(localStorage.getItem('laws')||'{}'),
-  motions:JSON.parse(localStorage.getItem('motions')||'{}'),
-  evidence:JSON.parse(localStorage.getItem('evidence')||'{}'),
+  ghToken:localStorage.getItem('gh_token')||'',
+  ghRepo:localStorage.getItem('gh_repo')||'dassociation22-code/synthexit.github.io',
+  sheetsUrl:localStorage.getItem('sheets_url')||'',
+  laws:JSON.parse(localStorage.getItem('laws')||'{}'),
+  motions:JSON.parse(localStorage.getItem('motions')||'{}'),
+  evidence:JSON.parse(localStorage.getItem('evidence')||'{}'),
 };
 
 function showPage(page,btn){
-  try{
-    document.querySelectorAll('[id^="page-"]').forEach(function(el){el.style.display='none';});
-    document.querySelectorAll('.nav-item').forEach(function(el){el.classList.remove('active');});
-    var t=document.getElementById('page-'+page);
-    if(t){t.style.display='block';}
-    if(btn&&btn.classList){btn.classList.add('active');}
-    else{
-      document.querySelectorAll('.nav-item').forEach(function(el){
-        var oc=el.getAttribute('onclick')||'';
-        if(oc.indexOf("'"+page+"'")!==-1){el.classList.add('active');}
-      });
-    }
-    if(page==='dashboard')loadGitHubIssues();
-    var main=document.querySelector('.main');
-    if(main)main.scrollTop=0;
-  }catch(e){console.error('showPage error:',e);}
+  try{
+    document.querySelectorAll('[id^="page-"]').forEach(function(el){el.style.display='none';});
+    document.querySelectorAll('.nav-item').forEach(function(el){el.classList.remove('active');});
+    var t=document.getElementById('page-'+page);
+    if(t){t.style.display='block';}
+    if(btn&&btn.classList){btn.classList.add('active');}
+    else{
+      document.querySelectorAll('.nav-item').forEach(function(el){
+        var oc=el.getAttribute('onclick')||'';
+        if(oc.indexOf("'"+page+"'")!==-1){el.classList.add('active');}
+      });
+    }
+    if(page==='dashboard')loadGitHubIssues();
+    var main=document.querySelector('.main');
+    if(main)main.scrollTop=0;
+  }catch(e){console.error('showPage error:',e);}
 }
 
 
 function updateCountdowns(){
-  const now=new Date();
-  const owi=new Date('2026-06-10T09:00:00');
-  const vop=new Date('2026-06-16T09:00:00');
-  function fmt(d){const diff=d-now;if(diff<0)return'PAST';const dy=Math.floor(diff/86400000);const hr=Math.floor((diff%86400000)/3600000);const mn=Math.floor((diff%3600000)/60000);return dy>0?dy+'d '+hr+'h':hr+'h '+mn+'m';}
-  ['owi-cd','next-cd'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=fmt(owi);});
-  const ve=document.getElementById('vop-cd');if(ve)ve.textContent=fmt(vop);
+  const now=new Date();
+  const owi=new Date('2026-06-10T09:00:00');
+  const vop=new Date('2026-06-16T09:00:00');
+  function fmt(d){const diff=d-now;if(diff<0)return'PAST';const dy=Math.floor(diff/86400000);const hr=Math.floor((diff%86400000)/3600000);const mn=Math.floor((diff%3600000)/60000);return dy>0?dy+'d '+hr+'h':hr+'h '+mn+'m';}
+  ['owi-cd','next-cd'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=fmt(owi);});
+  const ve=document.getElementById('vop-cd');if(ve)ve.textContent=fmt(vop);
 }
 updateCountdowns();setInterval(updateCountdowns,30000);
 
 function switchTab(btn,c,tab){
-  const page=document.getElementById('page-'+c);
-  page.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  page.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
-  btn.classList.add('active');
-  const t=document.getElementById(c+'-'+tab);if(t)t.style.display='block';
+  const page=document.getElementById('page-'+c);
+  page.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  page.querySelectorAll('.tab-content').forEach(t=>t.style.display='none');
+  btn.classList.add('active');
+  const t=document.getElementById(c+'-'+tab);if(t)t.style.display='block';
 }
 
 function addMotion(c){const f=document.getElementById(c+'-motion-form');if(f)f.style.display=f.style.display==='none'?'block':'none';}
 function saveMotion(c){
-  const title=document.getElementById(c+'-motion-title').value.trim();
-  const notes=document.getElementById(c+'-motion-notes').value.trim();
-  const gdoc=document.getElementById(c+'-motion-gdoc').value.trim();
-  if(!title)return;
-  if(!S.motions[c])S.motions[c]=[];
-  S.motions[c].push({title,notes,gdoc,ts:Date.now()});
-  localStorage.setItem('motions',JSON.stringify(S.motions));
-  const list=document.getElementById(c+'-motions-list');
-  const card=document.createElement('div');card.className='motion-card fade-in';
-  const lnk=gdoc?`<a href="${gdoc}" target="_blank" class="motion-link">OPEN DOC ↗</a>`:`<span class="motion-link disabled">OPEN DOC ↗</span>`;
-  card.innerHTML=`<div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">${title}</div><div class="motion-meta">${notes}</div><span class="motion-status status-draft">DRAFT</span></div>${lnk}`;
-  list.appendChild(card);
-  ['title','notes','gdoc'].forEach(f=>{document.getElementById(c+'-motion-'+f).value='';});
-  document.getElementById(c+'-motion-form').style.display='none';
+  const title=document.getElementById(c+'-motion-title').value.trim();
+  const notes=document.getElementById(c+'-motion-notes').value.trim();
+  const gdoc=document.getElementById(c+'-motion-gdoc').value.trim();
+  if(!title)return;
+  if(!S.motions[c])S.motions[c]=[];
+  S.motions[c].push({title,notes,gdoc,ts:Date.now()});
+  localStorage.setItem('motions',JSON.stringify(S.motions));
+  const list=document.getElementById(c+'-motions-list');
+  const card=document.createElement('div');card.className='motion-card fade-in';
+  const lnk=gdoc?`<a href="${gdoc}" target="_blank" class="motion-link">OPEN DOC ↗</a>`:`<span class="motion-link disabled">OPEN DOC ↗</span>`;
+  card.innerHTML=`<div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">${title}</div><div class="motion-meta">${notes}</div><span class="motion-status status-draft">DRAFT</span></div>${lnk}`;
+  list.appendChild(card);
+  ['title','notes','gdoc'].forEach(f=>{document.getElementById(c+'-motion-'+f).value='';});
+  document.getElementById(c+'-motion-form').style.display='none';
 }
 
 function showLawForm(c){const f=document.getElementById(c+'-law-form');if(f)f.style.display=f.style.display==='none'?'block':'none';}
 function saveLaw(c){
-  const citation=document.getElementById(c+'-law-citation').value.trim();
-  const title=document.getElementById(c+'-law-title').value.trim();
-  const text=document.getElementById(c+'-law-text').value.trim();
-  if(!citation)return;
-  if(!S.laws[c])S.laws[c]=[];
-  S.laws[c].push({citation,title,text,ts:Date.now()});
-  localStorage.setItem('laws',JSON.stringify(S.laws));
-  const list=document.getElementById(c+'-law-list');
-  const entry=document.createElement('div');entry.className='law-entry fade-in';
-  entry.innerHTML=`<div class="law-citation">${citation}</div><div class="law-title">${title}</div><div class="law-text">${text}</div>`;
-  list.appendChild(entry);
-  ['citation','title','text'].forEach(f=>{document.getElementById(c+'-law-'+f).value='';});
-  document.getElementById(c+'-law-form').style.display='none';
+  const citation=document.getElementById(c+'-law-citation').value.trim();
+  const title=document.getElementById(c+'-law-title').value.trim();
+  const text=document.getElementById(c+'-law-text').value.trim();
+  if(!citation)return;
+  if(!S.laws[c])S.laws[c]=[];
+  S.laws[c].push({citation,title,text,ts:Date.now()});
+  localStorage.setItem('laws',JSON.stringify(S.laws));
+  const list=document.getElementById(c+'-law-list');
+  const entry=document.createElement('div');entry.className='law-entry fade-in';
+  entry.innerHTML=`<div class="law-citation">${citation}</div><div class="law-title">${title}</div><div class="law-text">${text}</div>`;
+  list.appendChild(entry);
+  ['citation','title','text'].forEach(f=>{document.getElementById(c+'-law-'+f).value='';});
+  document.getElementById(c+'-law-form').style.display='none';
 }
 
 function addEvidence(c){const f=document.getElementById(c+'-evidence-form');if(f)f.style.display=f.style.display==='none'?'block':'none';}
 function saveEvidence(c){
-  const type=document.getElementById(c+'-ev-type').value;
-  const name=document.getElementById(c+'-ev-name').value.trim();
-  const date=document.getElementById(c+'-ev-date').value.trim();
-  const sig=document.getElementById(c+'-ev-sig').value.trim();
-  if(!name)return;
-  if(!S.evidence[c])S.evidence[c]=[];
-  S.evidence[c].push({type,name,date,sig,ts:Date.now()});
-  localStorage.setItem('evidence',JSON.stringify(S.evidence));
-  const list=document.getElementById(c+'-evidence-list');
-  const row=document.createElement('div');row.className='evidence-row fade-in';
-  const tc={PHOTO:'ev-photo',AUDIO:'ev-audio',MEDICAL:'ev-medical',TEXT:'ev-text',DOC:'ev-doc'}[type]||'ev-doc';
-  row.innerHTML=`<span class="ev-type ${tc}">${type}</span><div class="ev-name">${name}</div><div class="ev-date">${date}</div><div class="ev-sig">${sig}</div>`;
-  list.appendChild(row);
-  ['name','date','sig'].forEach(f=>{document.getElementById(c+'-ev-'+f).value='';});
-  document.getElementById(c+'-evidence-form').style.display='none';
+  const type=document.getElementById(c+'-ev-type').value;
+  const name=document.getElementById(c+'-ev-name').value.trim();
+  const date=document.getElementById(c+'-ev-date').value.trim();
+  const sig=document.getElementById(c+'-ev-sig').value.trim();
+  if(!name)return;
+  if(!S.evidence[c])S.evidence[c]=[];
+  S.evidence[c].push({type,name,date,sig,ts:Date.now()});
+  localStorage.setItem('evidence',JSON.stringify(S.evidence));
+  const list=document.getElementById(c+'-evidence-list');
+  const row=document.createElement('div');row.className='evidence-row fade-in';
+  const tc={PHOTO:'ev-photo',AUDIO:'ev-audio',MEDICAL:'ev-medical',TEXT:'ev-text',DOC:'ev-doc'}[type]||'ev-doc';
+  row.innerHTML=`<span class="ev-type ${tc}">${type}</span><div class="ev-name">${name}</div><div class="ev-date">${date}</div><div class="ev-sig">${sig}</div>`;
+  list.appendChild(row);
+  ['name','date','sig'].forEach(f=>{document.getElementById(c+'-ev-'+f).value='';});
+  document.getElementById(c+'-evidence-form').style.display='none';
 }
 
 function parseIntel(c){
-  const raw=document.getElementById(c+'-intel-paste').value.trim();
-  const out=document.getElementById(c+'-intel-output');if(!out)return;
-  try{
-    const d=JSON.parse(raw);
-    out.innerHTML=`<div class="intel-panel" style="margin-top:0;">
-      <div class="intel-tag">⬡ Parsed · ${new Date().toLocaleDateString()}</div>
-      ${d.agency?`<div class="intel-field"><div class="intel-key">Agency</div><div class="intel-val">${d.agency}</div></div>`:''}
-      ${d.urgency?`<div class="intel-field"><div class="intel-key">Urgency</div><div class="intel-val">${d.urgency}</div></div>`:''}
-      ${d.legal_significance?`<div class="intel-field"><div class="intel-key">Legal Significance</div><div class="intel-val">${d.legal_significance}</div></div>`:''}
-      ${d.cross_matter_flags?`<div class="intel-field"><div class="intel-key">Cross-Matter Flags</div><div class="intel-pills">${d.cross_matter_flags.map(f=>`<span class="intel-pill">${f}</span>`).join('')}</div></div>`:''}
-      ${d.recommended_actions?`<div class="intel-field"><div class="intel-key">Actions</div>${d.recommended_actions.map(a=>`<div style="background:rgba(200,169,81,0.05);border-left:2px solid var(--gold-dim);padding:8px 12px;margin-bottom:5px;font-size:11px;color:var(--text);">[${a.priority}] ${a.action}</div>`).join('')}</div>`:''}
-      ${d.snake_assessment?`<div class="intel-field"><div class="intel-key">Assessment</div><div class="intel-val assessment">${d.snake_assessment}</div></div>`:''}
-    </div>`;
-  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:11px;padding:12px;border:1px solid rgba(204,34,34,0.3);">JSON PARSE ERROR — Check pipeline output format.</div>`;}
+  const raw=document.getElementById(c+'-intel-paste').value.trim();
+  const out=document.getElementById(c+'-intel-output');if(!out)return;
+  try{
+    const d=JSON.parse(raw);
+    out.innerHTML=`<div class="intel-panel" style="margin-top:0;">
+      <div class="intel-tag">⬡ Parsed · ${new Date().toLocaleDateString()}</div>
+      ${d.agency?`<div class="intel-field"><div class="intel-key">Agency</div><div class="intel-val">${d.agency}</div></div>`:''}
+      ${d.urgency?`<div class="intel-field"><div class="intel-key">Urgency</div><div class="intel-val">${d.urgency}</div></div>`:''}
+      ${d.legal_significance?`<div class="intel-field"><div class="intel-key">Legal Significance</div><div class="intel-val">${d.legal_significance}</div></div>`:''}
+      ${d.cross_matter_flags?`<div class="intel-field"><div class="intel-key">Cross-Matter Flags</div><div class="intel-pills">${d.cross_matter_flags.map(f=>`<span class="intel-pill">${f}</span>`).join('')}</div></div>`:''}
+      ${d.recommended_actions?`<div class="intel-field"><div class="intel-key">Actions</div>${d.recommended_actions.map(a=>`<div style="background:rgba(200,169,81,0.05);border-left:2px solid var(--gold-dim);padding:8px 12px;margin-bottom:5px;font-size:11px;color:var(--text);">[${a.priority}] ${a.action}</div>`).join('')}</div>`:''}
+      ${d.snake_assessment?`<div class="intel-field"><div class="intel-key">Assessment</div><div class="intel-val assessment">${d.snake_assessment}</div></div>`:''}
+    </div>`;
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:11px;padding:12px;border:1px solid rgba(204,34,34,0.3);">JSON PARSE ERROR — Check pipeline output format.</div>`;}
 }
 
 async function loadGitHubIssues(){
-  const token=S.ghToken,repo=S.ghRepo;
-  const container=document.getElementById('gh-issues-container');
-  const sync=document.getElementById('gh-sync');
-  const countEl=document.getElementById('gh-count');
-  if(!token||!repo){if(sync)sync.innerHTML='<div class="sync-dot" style="background:var(--amber);"></div> Configure token in Pipeline Setup';return;}
-  try{
-    const res=await fetch(`https://api.github.com/repos/${repo}/issues?state=open&per_page=20`,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
-    if(!res.ok)throw new Error('auth');
-    const issues=await res.json();
-    if(countEl)countEl.textContent=issues.length;
-    if(sync)sync.innerHTML=`<div class="sync-dot"></div> Live · ${issues.length} open · ${new Date().toLocaleTimeString()}`;
-    if(container)container.innerHTML=issues.length===0?'<div class="gh-issue"><div style="color:var(--muted);font-size:11px;">No open issues yet. Pipeline populates this feed as emails are processed.</div></div>':issues.map(i=>`<div class="gh-issue"><div class="gh-num">#${i.number}</div><div style="flex:1"><div class="gh-title">${i.title}</div><div class="gh-meta">${new Date(i.created_at).toLocaleDateString()}</div></div><a href="${i.html_url}" target="_blank" class="motion-link" style="font-size:9px;">VIEW ↗</a></div>`).join('');
-  }catch(e){if(sync)sync.innerHTML='<div class="sync-dot" style="background:var(--red);"></div> GitHub connection failed';}
+  const token=S.ghToken,repo=S.ghRepo;
+  const container=document.getElementById('gh-issues-container');
+  const sync=document.getElementById('gh-sync');
+  const countEl=document.getElementById('gh-count');
+  if(!token||!repo){if(sync)sync.innerHTML='<div class="sync-dot" style="background:var(--amber);"></div> Configure token in Pipeline Setup';return;}
+  try{
+    const res=await fetch(`https://api.github.com/repos/${repo}/issues?state=open&per_page=20`,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
+    if(!res.ok)throw new Error('auth');
+    const issues=await res.json();
+    if(countEl)countEl.textContent=issues.length;
+    if(sync)sync.innerHTML=`<div class="sync-dot"></div> Live · ${issues.length} open · ${new Date().toLocaleTimeString()}`;
+    if(container)container.innerHTML=issues.length===0?'<div class="gh-issue"><div style="color:var(--muted);font-size:11px;">No open issues yet. Pipeline populates this feed as emails are processed.</div></div>':issues.map(i=>`<div class="gh-issue"><div class="gh-num">#${i.number}</div><div style="flex:1"><div class="gh-title">${i.title}</div><div class="gh-meta">${new Date(i.created_at).toLocaleDateString()}</div></div><a href="${i.html_url}" target="_blank" class="motion-link" style="font-size:9px;">VIEW ↗</a></div>`).join('');
+  }catch(e){if(sync)sync.innerHTML='<div class="sync-dot" style="background:var(--red);"></div> GitHub connection failed';}
 }
 
 function saveGHConfig(){
-  const t=document.getElementById('gh-token-input').value.trim();
-  const r=document.getElementById('gh-repo-input').value.trim();
-  if(t){S.ghToken=t;localStorage.setItem('gh_token',t);}
-  if(r){S.ghRepo=r;localStorage.setItem('gh_repo',r);}
-  const res=document.getElementById('gh-test-result');
-  res.style.color='var(--green)';res.textContent='Saved. Testing...';
-  loadGitHubIssues().then(()=>{res.textContent='Connected. Return to Dashboard.';});
+  const t=document.getElementById('gh-token-input').value.trim();
+  const r=document.getElementById('gh-repo-input').value.trim();
+  if(t){S.ghToken=t;localStorage.setItem('gh_token',t);}
+  if(r){S.ghRepo=r;localStorage.setItem('gh_repo',r);}
+  const res=document.getElementById('gh-test-result');
+  res.style.color='var(--green)';res.textContent='Saved. Testing...';
+  loadGitHubIssues().then(()=>{res.textContent='Connected. Return to Dashboard.';});
 }
 function saveSheetsConfig(){
-  const u=document.getElementById('sheets-url-input').value.trim();
-  if(u){S.sheetsUrl=u;localStorage.setItem('sheets_url',u);}
-  document.getElementById('sheets-test-result').style.color='var(--green)';
-  document.getElementById('sheets-test-result').textContent='Sheets URL saved.';
+  const u=document.getElementById('sheets-url-input').value.trim();
+  if(u){S.sheetsUrl=u;localStorage.setItem('sheets_url',u);}
+  document.getElementById('sheets-test-result').style.color='var(--green)';
+  document.getElementById('sheets-test-result').textContent='Sheets URL saved.';
 }
 
 const snakeLines=[
-  '"Motion reveals truth. Every document that enters this pipeline is a weapon, a shield, a signal, or a trap."',
-  '"Discipline cures chaos. Master-Self is a system, not a mood."',
-  '"June 10. Wyandotte. Suppress the stop. Everything downstream collapses."',
-  '"BUFINO. They ran the plate first. That admission is the case."',
-  '"The October 2nd recording contains management admissions. That audio anchors every forum."',
-  '"Pain is a compass. The system pushed back because the filing hit something real."',
-  '"Never break form — break limits. Build the motion. File it. Win."',
-  '"We hold these truths to be self-evident. The framers gave you this weapon. Use it."',
+  '"Motion reveals truth. Every document that enters this pipeline is a weapon, a shield, a signal, or a trap."',
+  '"Discipline cures chaos. Master-Self is a system, not a mood."',
+  '"June 10. Wyandotte. Suppress the stop. Everything downstream collapses."',
+  '"BUFINO. They ran the plate first. That admission is the case."',
+  '"The October 2nd recording contains management admissions. That audio anchors every forum."',
+  '"Pain is a compass. The system pushed back because the filing hit something real."',
+  '"Never break form — break limits. Build the motion. File it. Win."',
+  '"We hold these truths to be self-evident. The framers gave you this weapon. Use it."',
 ];
 let snakeIdx=0;
 function snakeSpeak(){
-  const tip=document.getElementById('snake-tip');
-  const txt=document.getElementById('snake-tip-text');
-  txt.textContent=snakeLines[snakeIdx%snakeLines.length];
-  snakeIdx++;
-  tip.style.display=tip.style.display==='none'?'block':'none';
+  const tip=document.getElementById('snake-tip');
+  const txt=document.getElementById('snake-tip-text');
+  txt.textContent=snakeLines[snakeIdx%snakeLines.length];
+  snakeIdx++;
+  tip.style.display=tip.style.display==='none'?'block':'none';
 }
 
 // Restore saved data
 function restoreData(){
-  const cases=['owi','vop','disorderly','nlrb','mdcr','merc'];
-  cases.forEach(c=>{
-    if(S.motions[c])S.motions[c].forEach(m=>{
-      const list=document.getElementById(c+'-motions-list');if(!list)return;
-      const card=document.createElement('div');card.className='motion-card';
-      const lnk=m.gdoc?`<a href="${m.gdoc}" target="_blank" class="motion-link">OPEN DOC ↗</a>`:`<span class="motion-link disabled">OPEN DOC ↗</span>`;
-      card.innerHTML=`<div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">${m.title}</div><div class="motion-meta">${m.notes}</div><span class="motion-status status-draft">DRAFT</span></div>${lnk}`;
-      list.appendChild(card);
-    });
-    if(S.laws[c])S.laws[c].forEach(l=>{
-      const list=document.getElementById(c+'-law-list');if(!list)return;
-      const e=document.createElement('div');e.className='law-entry';
-      e.innerHTML=`<div class="law-citation">${l.citation}</div><div class="law-title">${l.title}</div><div class="law-text">${l.text}</div>`;
-      list.appendChild(e);
-    });
-    if(S.evidence[c])S.evidence[c].forEach(ev=>{
-      const list=document.getElementById(c+'-evidence-list');if(!list)return;
-      const row=document.createElement('div');row.className='evidence-row';
-      const tc={PHOTO:'ev-photo',AUDIO:'ev-audio',MEDICAL:'ev-medical',TEXT:'ev-text',DOC:'ev-doc'}[ev.type]||'ev-doc';
-      row.innerHTML=`<span class="ev-type ${tc}">${ev.type}</span><div class="ev-name">${ev.name}</div><div class="ev-date">${ev.date}</div><div class="ev-sig">${ev.sig}</div>`;
-      list.appendChild(row);
-    });
-  });
-  if(S.ghRepo){const e=document.getElementById('gh-repo-input');if(e)e.value=S.ghRepo;}
-  if(S.sheetsUrl){const e=document.getElementById('sheets-url-input');if(e)e.value=S.sheetsUrl;}
+  const cases=['owi','vop','disorderly','nlrb','mdcr','merc'];
+  cases.forEach(c=>{
+    if(S.motions[c])S.motions[c].forEach(m=>{
+      const list=document.getElementById(c+'-motions-list');if(!list)return;
+      const card=document.createElement('div');card.className='motion-card';
+      const lnk=m.gdoc?`<a href="${m.gdoc}" target="_blank" class="motion-link">OPEN DOC ↗</a>`:`<span class="motion-link disabled">OPEN DOC ↗</span>`;
+      card.innerHTML=`<div class="motion-icon">⚖</div><div style="flex:1"><div class="motion-title">${m.title}</div><div class="motion-meta">${m.notes}</div><span class="motion-status status-draft">DRAFT</span></div>${lnk}`;
+      list.appendChild(card);
+    });
+    if(S.laws[c])S.laws[c].forEach(l=>{
+      const list=document.getElementById(c+'-law-list');if(!list)return;
+      const e=document.createElement('div');e.className='law-entry';
+      e.innerHTML=`<div class="law-citation">${l.citation}</div><div class="law-title">${l.title}</div><div class="law-text">${l.text}</div>`;
+      list.appendChild(e);
+    });
+    if(S.evidence[c])S.evidence[c].forEach(ev=>{
+      const list=document.getElementById(c+'-evidence-list');if(!list)return;
+      const row=document.createElement('div');row.className='evidence-row';
+      const tc={PHOTO:'ev-photo',AUDIO:'ev-audio',MEDICAL:'ev-medical',TEXT:'ev-text',DOC:'ev-doc'}[ev.type]||'ev-doc';
+      row.innerHTML=`<span class="ev-type ${tc}">${ev.type}</span><div class="ev-name">${ev.name}</div><div class="ev-date">${ev.date}</div><div class="ev-sig">${ev.sig}</div>`;
+      list.appendChild(row);
+    });
+  });
+  if(S.ghRepo){const e=document.getElementById('gh-repo-input');if(e)e.value=S.ghRepo;}
+  if(S.sheetsUrl){const e=document.getElementById('sheets-url-input');if(e)e.value=S.sheetsUrl;}
 }
 
 document.addEventListener('DOMContentLoaded',function(){
-  document.querySelectorAll('.nav-item').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var oc=btn.getAttribute('onclick')||'';
-      var m=oc.match(/showPage\('([^']+)'/);
-      if(m)showPage(m[1],btn);
-    });
-  });
-  document.querySelectorAll('.stash-btn').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var oc=btn.getAttribute('onclick')||'';
-      var m=oc.match(/showPage\('([^']+)'/);
-      if(m)showPage(m[1],btn);
-    });
-  });
-  document.querySelectorAll('.tab').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var oc=btn.getAttribute('onclick')||'';
-      var m=oc.match(/switchTab\(this,'([^']+)','([^']+)'/);
-      if(m)switchTab(btn,m[1],m[2]);
-    });
-  });
-  restoreData();
-  loadGitHubIssues();
+  document.querySelectorAll('.nav-item').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var oc=btn.getAttribute('onclick')||'';
+      var m=oc.match(/showPage\('([^']+)'/);
+      if(m)showPage(m[1],btn);
+    });
+  });
+  document.querySelectorAll('.stash-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var oc=btn.getAttribute('onclick')||'';
+      var m=oc.match(/showPage\('([^']+)'/);
+      if(m)showPage(m[1],btn);
+    });
+  });
+  document.querySelectorAll('.tab').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var oc=btn.getAttribute('onclick')||'';
+      var m=oc.match(/switchTab\(this,'([^']+)','([^']+)'/);
+      if(m)switchTab(btn,m[1],m[2]);
+    });
+  });
+  restoreData();
+  loadGitHubIssues();
 });
 </script>
 </body>
