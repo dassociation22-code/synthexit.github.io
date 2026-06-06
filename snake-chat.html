@@ -504,7 +504,10 @@ body::after{
     ></textarea>
     <button class="send-btn" id="send-btn" onclick="sendMessage()">⬡</button>
   </div>
-  <div class="input-hint">Enter to send · Shift+Enter for new line · Stone Dynasty™ · DCSÍA, LC</div>
+  <div class="input-hint" style="display:flex;justify-content:space-between;align-items:center;">
+  <span>Enter to send · Shift+Enter for new line · Stone Dynasty™ · DCSÍA, LC</span>
+  <button onclick="resetKeySecure()" style="background:transparent;border:1px solid var(--muted);color:var(--muted);padding:3px 10px;font-size:9px;font-family:var(--cinzel);cursor:pointer;letter-spacing:0.1em;" title="Reset API Key">⬡ RESET KEY</button>
+</div>
 </div>
 
 <script>
@@ -890,6 +893,47 @@ function removeTyping(id) {
   const el = document.getElementById(id);
   if (el) el.remove();
 }
+
+function resetKeySecure(){
+  document.getElementById('pin-modal').style.display='flex';
+  document.getElementById('pin-input').value='';
+  document.getElementById('pin-error').style.display='none';
+  setTimeout(function(){ document.getElementById('pin-input').focus(); },100);
+}
+
+function verifyPin(){
+  const pin = document.getElementById('pin-input').value.trim();
+  // Default PIN: 1776 — change after first use by updating the hash below
+  const validHash = '2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b';
+  crypto.subtle.digest('SHA-256', new TextEncoder().encode(pin)).then(function(buf){
+    const hash = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hash === validHash){
+      document.getElementById('pin-modal').style.display='none';
+      localStorage.removeItem('snake_api_key');
+      apiKey = '';
+      document.getElementById('api-setup').style.display='flex';
+      document.getElementById('api-key-input').value='';
+    } else {
+      document.getElementById('pin-error').style.display='block';
+      document.getElementById('pin-input').value='';
+      document.getElementById('pin-input').focus();
+    }
+  });
+}
 </script>
+
+<!-- PIN MODAL -->
+<div id="pin-modal" style="display:none;position:fixed;inset:0;background:rgba(4,4,10,0.97);z-index:300;align-items:center;justify-content:center;">
+  <div style="background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--gold);padding:32px;max-width:320px;width:90%;text-align:center;">
+    <div style="font-family:var(--cinzel);font-size:16px;color:var(--gold);letter-spacing:0.1em;margin-bottom:8px;">SECURITY VERIFICATION</div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:20px;letter-spacing:0.1em;">Enter your access PIN to reset the API key</div>
+    <input type="password" id="pin-input" maxlength="6" placeholder="••••••"
+      style="width:100%;background:#020206;border:1px solid var(--border);color:var(--text);padding:12px;font-family:var(--mono);font-size:18px;letter-spacing:0.3em;text-align:center;outline:none;margin-bottom:12px;"
+      onkeydown="if(event.key==='Enter')verifyPin()"/>
+    <button onclick="verifyPin()" style="width:100%;background:var(--gold);color:#020206;border:none;padding:12px;font-family:var(--cinzel);font-size:11px;font-weight:700;letter-spacing:0.2em;cursor:pointer;margin-bottom:8px;">VERIFY</button>
+    <button onclick="document.getElementById('pin-modal').style.display='none'" style="width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px;font-family:var(--mono);font-size:10px;cursor:pointer;">CANCEL</button>
+    <div id="pin-error" style="color:var(--red);font-size:10px;margin-top:8px;display:none;">Invalid PIN. Access denied.</div>
+  </div>
+</div>
 </body>
 </html>
